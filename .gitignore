@@ -1,2 +1,3 @@
-flask
+flask/
 config.py
+db_repository/
