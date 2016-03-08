@@ -1,4 +1,10 @@
 from app import app
+from flask.ext.login import LoginManager, UserMixin, login_user, logout_user,current_user
+from flask import redirect, url_for, render_template
+from oauth import OAuthSignIn
+from app.models import User
+from app import db
+
 
 @app.route('/')
 @app.route('/index')
@@ -7,16 +13,23 @@ def index():
 
 
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
 @app.route('/authorize/<provider>')
 def oauth_authorize(provider):
-    if not current_user.is_anonymous():
+    if not current_user.is_anonymous:
         return redirect(url_for('index'))
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
 
+
 @app.route('/callback/<provider>')
 def oauth_callback(provider):
-    if not current_user.is_anonymous():
+    if not current_user.is_anonymous:
         return redirect(url_for('index'))
     oauth = OAuthSignIn.get_provider(provider)
     social_id, username, email = oauth.callback()

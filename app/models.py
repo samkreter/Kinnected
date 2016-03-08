@@ -1,20 +1,22 @@
-from app import db
+from app import db,lm
 from flask.ext.login import LoginManager, UserMixin
 
-lm = LoginManager(app)
+
 
 class User(UserMixin,db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(64), index=True, unique=True)
-    last_name = db.Column(db.String(64), index=True, unique=True)
+    # first_name = db.Column(db.String(64), index=True, unique=True)
+    # last_name = db.Column(db.String(64), index=True, unique=True)
+    nickname = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     social_id = db.Column(db.String(64), nullable=False, unique=True)
-    projects = db.relationship('Project', backref='owner', lazy='dynamic')
+    #projects = db.relationship('Project', backref='owner', lazy='dynamic')
 
-    def __init__(self, email, first_name=None, last_name=None):
-        self.email = email.lower()
-        self.first_name = first_name
-        self.last_name = last_name
+    # def __init__(self, email, first_name=None, last_name=None):
+    #     self.email = email.lower()
+    #     self.first_name = first_name
+    #     self.last_name = last_name
 
     @property
     def is_authenticated(self):
