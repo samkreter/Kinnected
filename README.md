@@ -13,3 +13,19 @@
         `flask/bin/pip install -r requirments.txt`
 
     5. Make sure to ask the admin for the config.py file to run the app
+
+    6. Execute the db_crete.py to create the database
+
+        `./db_create.py`
+
+        - if this doesn't execute give it exection permission with
+
+            `chmod a+x db_create.py`
+
+    7. Migrate the database by executing
+
+        `./db_migrate.py'
+
+        - same as above if it doesn't execute give it permission with
+
+            `chmod a+x db_migrate.py'
