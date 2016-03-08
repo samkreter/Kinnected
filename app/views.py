@@ -6,6 +6,7 @@ from app.models import User
 from app import db
 
 
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -22,7 +23,7 @@ def logout():
 @app.route('/authorize/<provider>')
 def oauth_authorize(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('index'))
+        return redirect(url_for('current'))
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
 
@@ -42,4 +43,4 @@ def oauth_callback(provider):
         db.session.add(user)
         db.session.commit()
     login_user(user, True)
-    return redirect(url_for('index'))
+    return redirect(url_for('current'))

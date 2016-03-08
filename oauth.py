@@ -68,6 +68,7 @@ class FacebookSignIn(OAuthSignIn):
             me.get('email')
         )
 
+#still need to get the keys for the twitter login if we even want that
 
 # class TwitterSignIn(OAuthSignIn):
 #     def __init__(self):
