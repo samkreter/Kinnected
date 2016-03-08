@@ -26,8 +26,8 @@
 
 7. Migrate the database by executing
 
-    `./db_migrate.py'
+    `./db_migrate.py`
 
     - same as above if it doesn't execute give it permission with
 
-        `chmod a+x db_migrate.py'
+        `chmod a+x db_migrate.py`
