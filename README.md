@@ -1,14 +1,13 @@
 # SWE-project
 
-flask/bin/pip install flask
-flask/bin/pip install flask-login
-flask/bin/pip install flask-openid
-flask/bin/pip install flask-mail
-flask/bin/pip install flask-sqlalchemy
-flask/bin/pip install sqlalchemy-migrate
-flask/bin/pip install flask-whooshalchemy
-flask/bin/pip install flask-wtf
-flask/bin/pip install flask-babel
-flask/bin/pip install guess_language
-flask/bin/pip install flipflop
-flask/bin/pip install coverage
+###Set up
+
+    1. Make sure you have python 3.5 installed on your machine
+
+    2. Clone the repo and cd into the directory
+
+    3. Create a virtual envorment with the command `python3 -m venv flask`
+
+    4. Install requirments with `flask/bin/pip install -r requirments.txt`
+
+    5. Make sure to ask the admin for the config.py file to run the app

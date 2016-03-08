@@ -13,6 +13,12 @@ def index():
     return "Hello, World!"
 
 
+@app.route('/current')
+def current_login():
+    if current_user.is_anonymous:
+        return redirect(url_for('index'))
+    return "your loggin in yea"
+
 
 @app.route('/logout')
 def logout():
@@ -23,7 +29,7 @@ def logout():
 @app.route('/authorize/<provider>')
 def oauth_authorize(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('current'))
+        return redirect(url_for('current_login'))
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
 
@@ -31,7 +37,7 @@ def oauth_authorize(provider):
 @app.route('/callback/<provider>')
 def oauth_callback(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('index'))
+        return redirect(url_for('current_login'))
     oauth = OAuthSignIn.get_provider(provider)
     social_id, username, email = oauth.callback()
     if social_id is None:
@@ -43,4 +49,4 @@ def oauth_callback(provider):
         db.session.add(user)
         db.session.commit()
     login_user(user, True)
-    return redirect(url_for('current'))
+    return redirect(url_for('current_login'))
