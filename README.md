@@ -6,8 +6,10 @@
 
     2. Clone the repo and cd into the directory
 
-    3. Create a virtual envorment with the command `python3 -m venv flask`
+    3. Create a virtual envorment with the command
+        `$ python3 -m venv flask`
 
-    4. Install requirments with `flask/bin/pip install -r requirments.txt`
+    4. Install requirments with
+        `$ flask/bin/pip install -r requirments.txt`
 
     5. Make sure to ask the admin for the config.py file to run the app
