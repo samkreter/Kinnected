@@ -59,12 +59,16 @@ class Company(UserMixin,db.Model):
     address = db.Column(db.String(120), index=True, unique=True)
 
 
-    #projects = db.relationship('Project', backref='owner', lazy='dynamic')
+profile_skill_assoc_table = Table('association', Base.metadata,
+    Column('profile_id', Integer, ForeignKey('skill.id')),
+    Column('skill_id', Integer, ForeignKey('profile.id'))
+)
 
-    # def __init__(self, email, first_name=None, last_name=None):
-    #     self.email = email.lower()
-    #     self.first_name = first_name
-    #     self.last_name = last_name
+class Skill(UserMixin,db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    users = relationship("Profile",secondary=profile_skill_assoc_table,back_populates="skills")
+
+
 
 class Profile(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -72,6 +76,7 @@ class Profile(UserMixin,db.Model):
     resume = db.Column(db.String(120))
     user = db.relationship('User', back_populates='profile')
     jobs = db.relationship('Job', backref='employee', lazy='dynamic')
+    skills = relationship("Skill",secondary=profile_skill_assoc_table,back_populates="users")
     #nickname = db.Column(db.String(64), index=True, unique=True)
     #address = db.Column(db.String(120), index=True, unique=True)
 
