@@ -20,7 +20,7 @@ class User(UserMixin,db.Model):
 
     #relationships
     #projects = db.relationship('Project', backref='owner', lazy='dynamic')
-    companies = db.relationship('Company', backref='owner', lazy='dynamic')
+    companies = relationship("Company", back_populates="owner")
     profile = db.relationship('Profile', uselist=False, back_populates='user')
 
     # def __init__(self, email, first_name=None, last_name=None):
@@ -53,7 +53,9 @@ def load_user(id):
 
 class Company(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey('user.id'))
+    owner = relationship("User", back_populates="companies")
+    jobs = relationship("Job", back_populates="company")
     name = db.Column(db.String(120))
     #nickname = db.Column(db.String(64), index=True, unique=True)
     address = db.Column(db.String(120), index=True, unique=True)
@@ -96,8 +98,9 @@ class Job(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     body = db.Column(db.String(140))
     profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
-    company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
     users = relationship("Profile",secondary=profile_job_assoc_table,back_populates="skills")
+    company_id = Column(Integer, ForeignKey('company.id'))
+    company = relationship("Company", back_populates="jobs")
 
     def __repr__(self):
         return '<Job %r>' % (self.title)
