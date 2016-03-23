@@ -81,7 +81,7 @@ class Profile_skill_assoc_table(db.Model,Base):
 class Job(db.Model,Base):
     __tablename__ = 'job'
     id = db.Column(db.Integer, primary_key = True)
-    body = db.Column(db.String(140))
+    title = db.Column(db.String(140))
 
     users = db.relationship("Profile",secondary=Profile_job_assoc_table.__table__,back_populates="jobs")
 
