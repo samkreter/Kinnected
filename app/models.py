@@ -58,16 +58,27 @@ class Company(UserMixin,db.Model):
     #nickname = db.Column(db.String(64), index=True, unique=True)
     address = db.Column(db.String(120), index=True, unique=True)
 
+    def __repr__(self):
+        return '<Company %r>' % (self.name)
+
 
 profile_skill_assoc_table = Table('association', Base.metadata,
     Column('profile_id', Integer, ForeignKey('skill.id')),
     Column('skill_id', Integer, ForeignKey('profile.id'))
 )
 
+profile_job_assoc_table = Table('association', Base.metadata,
+    Column('profile_id', Integer, ForeignKey('job.id')),
+    Column('job_id', Integer, ForeignKey('profile.id'))
+)
+
 class Skill(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     users = relationship("Profile",secondary=profile_skill_assoc_table,back_populates="skills")
+    name = db.Column(db.String(120))
 
+    def __repr__(self):
+        return '<Skill %r>' % (self.name)
 
 
 class Profile(UserMixin,db.Model):
@@ -75,16 +86,19 @@ class Profile(UserMixin,db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     resume = db.Column(db.String(120))
     user = db.relationship('User', back_populates='profile')
-    jobs = db.relationship('Job', backref='employee', lazy='dynamic')
+    jobs = relationship("Job",secondary=profile_job_assoc_table,back_populates="users")
     skills = relationship("Skill",secondary=profile_skill_assoc_table,back_populates="users")
-    #nickname = db.Column(db.String(64), index=True, unique=True)
-    #address = db.Column(db.String(120), index=True, unique=True)
+
+    def __repr__(self):
+        return '<Profile %r>' % (self.id)
 
 class Job(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     body = db.Column(db.String(140))
     profile_id = db.Column(db.Integer, db.ForeignKey('profile.id'))
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
+    users = relationship("Profile",secondary=profile_job_assoc_table,back_populates="skills")
 
     def __repr__(self):
-        return '<Project %r>' % (self.body)
+        return '<Job %r>' % (self.title)
+
