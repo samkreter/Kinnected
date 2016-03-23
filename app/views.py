@@ -1,31 +1,37 @@
 from app import app
-from flask.ext.login import LoginManager, UserMixin, login_user, logout_user,current_user
+from flask.ext.login import LoginManager, login_required, UserMixin, login_user, logout_user,current_user
 from flask import redirect, url_for, render_template
 from oauth import OAuthSignIn
 from app.models import User
-from app import db
-
+from app import db, lm
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hello, World!"
+    return render_template("index.html")
 
 
+#just a holder route that users hit when their logged in, we can change this later
 @app.route('/current')
+@login_required
 def current_login():
-    if current_user.is_anonymous:
-        return redirect(url_for('index'))
     return "your loggin in yea"
 
 
+#to log out the current user jsut send them to this route
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+#users hit this if they are not loggin in, we'll fill in cool stuff later
+@lm.unauthorized_handler
+def unauthorized():
+    # do stuff
+    return redirect(url_for('index'))
 
+#userd for login to check, authenticate and create a user if nesseary
 @app.route('/authorize/<provider>')
 def oauth_authorize(provider):
     if not current_user.is_anonymous:
@@ -33,7 +39,7 @@ def oauth_authorize(provider):
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
 
-
+#the call back to get all of the information from the provider, probably sticking with facebook
 @app.route('/callback/<provider>')
 def oauth_callback(provider):
     if not current_user.is_anonymous:
