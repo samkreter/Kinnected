@@ -1,19 +1,20 @@
-from require import *
+# from require import *
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
+import os
 
 # Base Directory
 basedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..')
 
 
 app = Flask(__name__)
-app.config.from_object('app.config')
+app.config.from_object('config')
 db = SQLAlchemy(app)
 lm = LoginManager(app)
 
 # Bcrypt for password encryption
-flask_bcrypt = Bcrypt(app)
+# flask_bcrypt = Bcrypt(app)
 
 # HTTPAuth
 auth = HTTPBasicAuth()
