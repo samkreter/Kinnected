@@ -9,7 +9,7 @@ from app import db, lm
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    return app.send_static_file('base.html')
 
 
 #just a holder route that users hit when their logged in, we can change this later
