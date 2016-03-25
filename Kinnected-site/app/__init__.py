@@ -17,16 +17,14 @@ lm = LoginManager(app)
 # flask_bcrypt = Bcrypt(app)
 
 # HTTPAuth
-auth = HTTPBasicAuth()
+#auth = HTTPBasicAuth()
 
 # Post Request Response
-@app.after_request
-def after_resquest(response):
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-  return response
+# @app.after_request
+# def after_resquest(response):
+#   response.headers.add('Access-Control-Allow-Origin', '*')
+#   response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+#   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+#   return response
 
 from app import views,models
-from models import *
-import controller
