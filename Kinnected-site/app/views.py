@@ -2,6 +2,7 @@ from app import app
 from flask.ext.login import LoginManager, login_required, UserMixin, login_user, logout_user,current_user
 from flask import redirect, url_for, render_template,request
 from oauth import OAuthSignIn
+from sqlalchemy.exc import IntegrityError
 from app.models import User
 from app import db, lm
 
@@ -14,7 +15,16 @@ def index():
 
 @app.route('/users/create', methods = ['POST'])
 def create_user():
-    request.json['testing']
+    print(request.form['email'])
+    user = User(first_name=request.form['first_name'],last_name=request.form['last_name'],email=request.form['email'],password=request.form['password'])
+    try:
+        db.session.add(user)
+        db.session.commit()
+        error = "User added"
+    except IntegrityError:
+        error = "Something went wrong here man"
+    print(error)
+    return redirect('/index')
 
 
 #just a holder route that users hit when their logged in, we can change this later
