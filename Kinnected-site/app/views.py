@@ -1,6 +1,6 @@
 from app import app
 from flask.ext.login import LoginManager, login_required, UserMixin, login_user, logout_user,current_user
-from flask import redirect, url_for, render_template
+from flask import redirect, url_for, render_template,request
 from oauth import OAuthSignIn
 from app.models import User
 from app import db, lm
@@ -10,6 +10,11 @@ from app import db, lm
 @app.route('/index')
 def index():
     return app.send_static_file('base.html')
+
+
+@app.route('/users/create', methods = ['POST'])
+def create_user():
+    request.json['testing']
 
 
 #just a holder route that users hit when their logged in, we can change this later
