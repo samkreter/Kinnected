@@ -36,6 +36,21 @@ def get_user(id):
     print(error)
     return redirect('/index')
 
+@app.route('/users/delete/<int:id>')
+def delete_user(id):
+    user = User.query.filter_by(id=id).first()
+    if user is not None:
+        try:
+            db.session.delete(user)
+            db.session.commit()
+            error = "User deleted"
+        except IntegrityError:
+            error = "Something went wrong here man"
+    else:
+        error = "User not found"
+    print(error)
+    return redirect('/index')
+
 
 #just a holder route that users hit when their logged in, we can change this later
 @app.route('/current')
