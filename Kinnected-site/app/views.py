@@ -26,6 +26,16 @@ def create_user():
     print(error)
     return redirect('/index')
 
+@app.route('/users/<int:id>')
+def get_user(id):
+    user = User.query.filter_by(id=id).first()
+    if user is not None:
+        error = "all good"
+    else:
+        error = "User not found"
+    print(error)
+    return redirect('/index')
+
 
 #just a holder route that users hit when their logged in, we can change this later
 @app.route('/current')
