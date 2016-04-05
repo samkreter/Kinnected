@@ -11,6 +11,14 @@ from app import db, lm
 def index():
     return app.send_static_file('base.html')
 
+# @app.route('/profile/<int:id>')
+# def get_profile(id):
+#     user = User.query.filter_by(id=id).first()
+#     if user is not None:
+#     else:
+#         error = "User not found"
+
+
 
 @app.route('/users/create', methods = ['POST'])
 def create_user():
