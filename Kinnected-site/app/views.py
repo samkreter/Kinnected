@@ -1,6 +1,6 @@
 from app import app
 from flask.ext.login import LoginManager, login_required, UserMixin, login_user, logout_user,current_user
-from flask import redirect, url_for, render_template,request
+from flask import redirect, url_for, render_template,request,jsonify
 from sqlalchemy.exc import IntegrityError
 from app.models import User
 from app import db, lm
@@ -10,6 +10,17 @@ from app import db, lm
 @app.route('/index')
 def index():
     return app.send_static_file('base.html')
+
+
+
+
+@app.route('/users/json/<int:id>')
+def user_json(id):
+    user = User.query.filter_by(id=id).first()
+    if user is not None:
+        return jsonify({**user.toJson,**user.profile.toJson})
+    else:
+        return "User not found"
 
 # @app.route('/profile/<int:id>')
 # def get_profile(id):

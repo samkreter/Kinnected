@@ -43,6 +43,13 @@ class User(db.Model,Base,UserMixin):
     def is_anonymous(self):
         return False
 
+    @property
+    def columns(self):
+        return [ c.name for c in self.__table__.columns ]
+
+    @property
+    def toJson(self):
+        return dict([ (c, getattr(self, c)) for c in self.columns ])
 
     def get_id(self):
         return str(self.id)
@@ -63,6 +70,14 @@ class Company(db.Model,Base):
     name = db.Column(db.String(120))
     #nickname = db.Column(db.String(64), index=True, unique=True)
     address = db.Column(db.String(120), index=True, unique=True)
+
+    @property
+    def columns(self):
+        return [ c.name for c in self.__table__.columns ]
+
+    @property
+    def toJson(self):
+        return dict([ (c, getattr(self, c)) for c in self.columns ])
 
     def __repr__(self):
         return '<Company %r>' % (self.name)
@@ -89,6 +104,14 @@ class Job(db.Model,Base):
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
     company = db.relationship("Company", back_populates="jobs")
 
+    @property
+    def columns(self):
+        return [ c.name for c in self.__table__.columns ]
+
+    @property
+    def toJson(self):
+        return dict([ (c, getattr(self, c)) for c in self.columns ])
+
     def __repr__(self):
         return '<Job %r>' % (self.title)
 
@@ -103,6 +126,14 @@ class Profile(db.Model,Base):
     jobs = db.relationship("Job",secondary=Profile_job_assoc_table.__table__,back_populates="users")
     skills = db.relationship("Skill",secondary=Profile_skill_assoc_table.__table__,back_populates="users")
 
+    @property
+    def columns(self):
+        return [ c.name for c in self.__table__.columns ]
+
+    @property
+    def toJson(self):
+        return dict([ (c, getattr(self, c)) for c in self.columns ])
+
     def __repr__(self):
         return '<Profile %r>' % (self.id)
 
@@ -112,6 +143,14 @@ class Skill(db.Model,Base):
     id = db.Column(db.Integer, primary_key=True)
     users = db.relationship("Profile",secondary=Profile_skill_assoc_table.__table__,back_populates="skills")
     name = db.Column(db.String(120))
+
+    @property
+    def columns(self):
+        return [ c.name for c in self.__table__.columns ]
+
+    @property
+    def toJson(self):
+        return dict([ (c, getattr(self, c)) for c in self.columns ])
 
     def __repr__(self):
         return '<Skill %r>' % (self.name)
