@@ -4,6 +4,7 @@ from flask import redirect, url_for, render_template,request,jsonify
 from sqlalchemy.exc import IntegrityError
 from app.models import User
 from app import db, lm
+import bcrypt
 
 
 @app.route('/')
@@ -12,29 +13,27 @@ def index():
     return app.send_static_file('base.html')
 
 
-
-
+##############
+# User routes#
+##############
 @app.route('/users/json/<int:id>')
 def user_json(id):
     user = User.query.filter_by(id=id).first()
     if user is not None:
+        print(user.__table__.columns)
         return jsonify({**user.toJson,**user.profile.toJson})
     else:
         return "User not found"
-
-# @app.route('/profile/<int:id>')
-# def get_profile(id):
-#     user = User.query.filter_by(id=id).first()
-#     if user is not None:
-#     else:
-#         error = "User not found"
-
 
 
 @app.route('/users/create', methods = ['POST'])
 def create_user():
     print(request.form['email'])
-    user = User(first_name=request.form['first_name'],last_name=request.form['last_name'],email=request.form['email'],password=request.form['password'])
+    user = User(first_name=request.form['first_name'],
+        last_name=request.form['last_name'],
+        email=request.form['email'],
+        password=bcrypt.hashpw(request.form['password'] \
+            .encode('UTF_8'),bcrypt.gensalt(14)))
     try:
         db.session.add(user)
         db.session.commit()
@@ -76,19 +75,24 @@ def delete_user(id):
 def current_login():
     return "your loggin in yea"
 
+
+###################
+# Login/out routes#
+###################
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.get(form.email.data)
         if user:
-            if bcrypt.check_password_hash(user.password, form.password.data):
+            if bcrypt.hashpw(form.password.data,user.password) == user.password:
                 user.authenticated = True
                 db.session.add(user)
                 db.session.commit()
                 login_user(user, remember=True)
-                return redirect(url_for("bull.reports"))
-    return render_template("login.html", form=form)
+                return redirect(url_for("current_login"))
+    return "not good"
 
 
 #to log out the current user jsut send them to this route
