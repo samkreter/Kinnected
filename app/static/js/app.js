@@ -32,14 +32,7 @@ var KinnectedApp = angular.module('KinnectedApp', [
       templateUrl: 'static/base.html',
       controller: 'IndexController'
     })
-    .state('about-us', {
-      url: '/about/',
-      templateUrl: 'static/partials/about-us.html'
-    })
-    .state('contact-us', {
-      url: '/contact/',
-      templateUrl: 'static/partials/contact-us.html'
-    })
+
     $locationProvider.html5Mode(true);
   }
 ])
