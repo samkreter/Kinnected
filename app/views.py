@@ -10,7 +10,7 @@ import bcrypt
 @app.route('/')
 @app.route('/index')
 def index():
-    return app.send_static_file('base.html')
+    return app.send_static_file('Landing_page.html')
 
 
 ##############
