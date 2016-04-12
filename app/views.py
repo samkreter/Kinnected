@@ -9,6 +9,8 @@ import bcrypt
 
 @app.route('/')
 @app.route('/index')
+@app.route('/home')
+@app.route('/test')
 def index():
     return app.send_static_file('base.html')
 

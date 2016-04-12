@@ -20,16 +20,18 @@ var KinnectedApp = angular.module('KinnectedApp', [
 .config([
   '$stateProvider','$urlRouterProvider','$locationProvider',
   function($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider
-    .when('','/home')
-    .otherwise('/home');
     $stateProvider
     .state('home', {
       url: '/home',
       templateUrl: 'static/base.html',
       controller: 'IndexController'
     })
-
+    .state('test',{
+      url: '/test',
+      templateUrl: 'static/partials/index.html',
+      controller: 'testController'
+    })
+    $urlRouterProvider.otherwise('home');
     $locationProvider.html5Mode(true);
   }
 ])
