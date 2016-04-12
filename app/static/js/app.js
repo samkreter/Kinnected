@@ -13,12 +13,9 @@ var KinnectedApp = angular.module('KinnectedApp', [
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     $rootScope.$on('$stateChangeSuccess', function() {
-      runPositionFooter();
-      if( $.mobile.support.touch ) {
-        slidebarIn();
-      }
+
     });
-  } 
+  }
 ])
 .config([
   '$stateProvider','$urlRouterProvider','$locationProvider',
