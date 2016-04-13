@@ -8,16 +8,16 @@ var KinnectedApp = angular.module('KinnectedApp', [
   'ngAnimate'
 ])
 .run([
-  '$rootScope','$state','$stateParams',
-  function($rootScope, $state, $stateParams) {
+  '$rootScope','$state','$stateParams','AuthService',
+  function($rootScope, $state, $stateParams, $AuthService) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-    $rootScope.$on('$stateChangeSuccess', function() {
-    $rootScope.$on('$routeChangeStart', function (event, next, current) {
-      if (next.access.restricted && AuthService.isLoggedIn() === false) {
-        $state.go('/home');
+    $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+      if (toState.restricted && AuthService.isLoggedIn() === false){
+        // User isn’t authenticated
+        $state.transitionTo("home");
+        event.preventDefault();
       }
-    });
     });
   }
 
