@@ -113,34 +113,34 @@
                 <h2 class="text-center">New to Kinnected?</h2>
                 <h4 class="text-center">Do Amazing at Everything</h4>
                 <p class="text-center">Start now for FREE!!</p>
-                <form action="api/users/create" method="POST" class="form-horizontal" role="form">
+                <form ng-controller = "registerController" ng-submit="register()" class="form-horizontal" role="form">
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="fname">First Name:</label>
                         <div class="col-sm-6">
-                            <input type="text" name="first_name" class="form-control" id="fname" placeholder="Enter First Name">
+                            <input type="text" ng-model="registerForm.first_name" class="form-control" id="fname" placeholder="Enter First Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="lname">Last Name:</label>
                         <div class="col-sm-6">
-                            <input type="text" name="last_name" class="form-control" id="lname" placeholder="Enter Last Name">
+                            <input type="text" ng-model="registerForm.last_name" class="form-control" id="lname" placeholder="Enter Last Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="email">Email:</label>
                         <div class="col-sm-6">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+                            <input type="email" ng-model="registerForm.email" class="form-control" id="email" placeholder="Enter email">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="pwd">Password:</label>
                         <div class="col-sm-6">
-                            <input type="password" name="password"class="form-control" id="pwd" placeholder="Enter password">
+                            <input type="password" ng-model="registerForm.password"class="form-control" id="pwd" placeholder="Enter password">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-4 col-sm-4">
-                            <button type="submit" class="btn btn-default">Create Account</button>
+                            <button type="submit" ng-disabled="disabled" class="btn btn-default">Create Account</button>
                         </div>
                     </div>
                 </form>

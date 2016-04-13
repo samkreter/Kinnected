@@ -88,13 +88,16 @@ angular.module('KinnectedServices', ['ngResource'])
 
   }
 
-  function register(email, password) {
+  function register(first_name, last_name, email, password) {
 
     // create a new instance of deferred
     var deferred = $q.defer();
-
+    console.log(first_name);
     // send a post request to the server
-    $http.post('/api/register', {email: email, password: password})
+    $http.post('/api/users/create', {first_name: first_name,
+                                 last_name: last_name,
+                                 email: email,
+                                 password: password})
       // handle success
       .success(function (data, status) {
         if(status === 200 && data.result){
