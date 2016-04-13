@@ -94,11 +94,20 @@ angular.module('KinnectedServices', ['ngResource'])
     var deferred = $q.defer();
     console.log(first_name);
     // send a post request to the server
-    $http.post('/api/users/create', {first_name: first_name,
+    // $http.post('/api/users/create', {first_name: first_name,
+    //                              last_name: last_name,
+    //                              email: email,
+    //                              password: password})
+      // handle success
+    $http({
+    url: '/api/users/create',
+    method: "POST",
+    data: JSON.stringify({first_name: first_name,
                                  last_name: last_name,
                                  email: email,
-                                 password: password})
-      // handle success
+                                 password: password}),
+    headers: {'Content-Type': 'application/json'}
+    })
       .success(function (data, status) {
         if(status === 200 && data.result){
           deferred.resolve();

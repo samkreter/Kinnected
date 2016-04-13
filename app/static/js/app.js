@@ -15,8 +15,7 @@ var KinnectedApp = angular.module('KinnectedApp', [
     $rootScope.$on('$stateChangeSuccess', function() {
     $rootScope.$on('$routeChangeStart', function (event, next, current) {
       if (next.access.restricted && AuthService.isLoggedIn() === false) {
-        $location.path('/login');
-        $route.reload();
+        $state.go('/home');
       }
     });
     });
@@ -34,7 +33,7 @@ var KinnectedApp = angular.module('KinnectedApp', [
       access: {restricted: false}
     })
     .state('profile',{
-      url: '/test',
+      url: '/profile',
       templateUrl: 'static/Profile_page.html',
       controller: 'profileController',
       access: {restricted: true}

@@ -68,8 +68,8 @@ angular.module('KinnectedApp').controller('logoutController',
 }]);
 
 angular.module('KinnectedApp').controller('registerController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
+  ['$scope', '$location', 'AuthService','$state',
+  function ($scope, $location, AuthService,$state) {
 
     $scope.register = function () {
 
@@ -84,9 +84,9 @@ angular.module('KinnectedApp').controller('registerController',
                            $scope.registerForm.password)
         // handle success
         .then(function () {
-          $location.path('/profile');
           $scope.disabled = false;
           $scope.registerForm = {};
+          $state.go('profile');
         })
         // handle error
         .catch(function () {

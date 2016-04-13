@@ -27,12 +27,10 @@ def user_json(id):
 
 @app.route('/api/users/create', methods = ['POST'])
 def create_user():
-    print(request.data)
-    error = "User Created"
-    user = User(first_name=request.form['first_name'],
-        last_name=request.form['last_name'],
-        email=request.form['email'],
-        password=bcrypt.hashpw(request.form['password'] \
+    user = User(first_name=request.json['first_name'],
+        last_name=request.json['last_name'],
+        email=request.json['email'],
+        password=bcrypt.hashpw(request.json['password'] \
             .encode('UTF_8'),bcrypt.gensalt(14)))
     try:
         db.session.add(user)
