@@ -30,7 +30,7 @@ def user_json(id):
 
 @app.route('/users/create', methods = ['POST'])
 def create_user():
-    print(request.form['email'])
+    error = "User Created"
     user = User(first_name=request.form['first_name'],
         last_name=request.form['last_name'],
         email=request.form['email'],
@@ -39,11 +39,9 @@ def create_user():
     try:
         db.session.add(user)
         db.session.commit()
-        error = "User added"
     except IntegrityError:
-        error = "Something went wrong here man"
-    print(error)
-    return redirect('/index')
+        error = "User email already exists"
+    return error
 
 @app.route('/users/<int:id>')
 def get_user(id):

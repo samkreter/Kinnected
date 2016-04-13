@@ -86,7 +86,7 @@
                 <a class="navbar-brand" href="#">Kinnected</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right">
+                <form action="/users/create" method="post" class="navbar-form navbar-right">
                     <div class="form-group">
                         <input type="text" placeholder="Email" class="form-control">
                     </div>
@@ -94,7 +94,6 @@
                         <input type="password" placeholder="Password" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success">Sign in</button>
-                    <button type="submit" class="btn btn-success">Sign up</button>
                 </form>
             </div><!--/.navbar-collapse -->
         </div>
@@ -114,29 +113,29 @@
                 <h2 class="text-center">New to Kinnected?</h2>
                 <h4 class="text-center">Do Amazing at Everything</h4>
                 <p class="text-center">Start now for FREE!!</p>
-                <form class="form-horizontal" role="form">
+                <form action="/users/create" method="POST" class="form-horizontal" role="form">
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="fname">First Name:</label>
                         <div class="col-sm-6">
-                            <input type="email" class="form-control" id="fname" placeholder="Enter First Name">
+                            <input type="text" name="first_name" class="form-control" id="fname" placeholder="Enter First Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="lname">Last Name:</label>
                         <div class="col-sm-6">
-                            <input type="email" class="form-control" id="lname" placeholder="Enter Last Name">
+                            <input type="text" name="last_name" class="form-control" id="lname" placeholder="Enter Last Name">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="email">Email:</label>
                         <div class="col-sm-6">
-                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="pwd">Password:</label>
                         <div class="col-sm-6">
-                            <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                            <input type="password" name="password"class="form-control" id="pwd" placeholder="Enter password">
                         </div>
                     </div>
                     <div class="form-group">
