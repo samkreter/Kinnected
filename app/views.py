@@ -8,16 +8,9 @@ import bcrypt
 
 
 @app.route('/')
-@app.route('/index')
 @app.route('/home')
-@app.route('/test')
 def index():
     return app.send_static_file('index.html')
-
-# @app.route('/profile')
-# def profile():
-#     return app.send_static_file('Profile_page.html')
-
 
 ##############
 # User routes#
@@ -36,17 +29,18 @@ def user_json(id):
 def create_user():
     print(request.data)
     error = "User Created"
-    # user = User(first_name=request.form['first_name'],
-    #     last_name=request.form['last_name'],
-    #     email=request.form['email'],
-    #     password=bcrypt.hashpw(request.form['password'] \
-    #         .encode('UTF_8'),bcrypt.gensalt(14)))
-    # try:
-    #     db.session.add(user)
-    #     db.session.commit()
-    # except IntegrityError:
-    #     error = "User email already exists"
-    return error
+    user = User(first_name=request.form['first_name'],
+        last_name=request.form['last_name'],
+        email=request.form['email'],
+        password=bcrypt.hashpw(request.form['password'] \
+            .encode('UTF_8'),bcrypt.gensalt(14)))
+    try:
+        db.session.add(user)
+        db.session.commit()
+        status = 'success'
+    except IntegrityError:
+        status = "this user is already registered"
+    return jsonify({'result': status})
 
 @app.route('/api/users/<int:id>')
 def get_user(id):
@@ -87,24 +81,25 @@ def current_login():
 
 @app.route("/api/login", methods=["GET", "POST"])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.get(form.email.data)
-        if user:
-            if bcrypt.hashpw(form.password.data,user.password) == user.password:
-                user.authenticated = True
-                db.session.add(user)
-                db.session.commit()
-                login_user(user, remember=True)
-                return redirect(url_for("current_login"))
-    return "not good"
+    user = User.query.get(form.email.data)
+    status = False
+    if user:
+        if bcrypt.hashpw(form.password.data,user.password) == user.password:
+            user.authenticated = True
+            db.session.add(user)
+            db.session.commit()
+            login_user(user, remember=True)
+            status = True
+
+    return jsonify({'result': status})
 
 
 #to log out the current user jsut send them to this route
 @app.route('/api/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return jsonify({'result': 'success'})
+
 
 #users hit this if they are not loggin in, we'll fill in cool stuff later
 @lm.unauthorized_handler
