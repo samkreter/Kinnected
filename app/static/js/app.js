@@ -13,14 +13,15 @@ var KinnectedApp = angular.module('KinnectedApp', [
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-      console.log(toState);
+
+      //make sure only authenticated users can get to certain sections
       if (toState.restricted && AuthService.isLoggedIn() === false){
-        // User isn’t authenticated
         $state.transitionTo("home");
         event.preventDefault();
       }
-      console.log(AuthService.isLoggedIn())
-      if(toState.name != "profile" && AuthService.isLoggedIn() === true){
+
+      //if users logged in and goes to homepage redirect to their profile page
+      if(toState.name == "home" && AuthService.isLoggedIn() === true){
         $state.transitionTo("profile");
         event.preventDefault();
       }
@@ -42,6 +43,11 @@ var KinnectedApp = angular.module('KinnectedApp', [
       url: '/profile',
       templateUrl: 'static/Profile_page.html',
       controller: 'profileController',
+      restricted: true
+    })
+    .state('logout',{
+      url: '/logout',
+      controller: 'logoutController',
       restricted: true
     })
     $urlRouterProvider.otherwise('home');

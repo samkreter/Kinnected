@@ -10,16 +10,22 @@ KinnectedAppControllers.controller("IndexController", function($scope) {
     $scope.init();
 });
 
+angular.module('KinnectedApp').controller('profileController',
+  ['$scope', '$state', 'AuthService',
+  function ($scope, $state, AuthService) {
 
-KinnectedAppControllers.controller("profileController", function($scope) {
-    $scope.init = function() {
-        console.log('loading the test ctrl');
+    $scope.logout = function () {
+
+      // call logout from service
+      AuthService.logout()
+        .then(function () {
+          $state.go('home');
+        });
+
     };
 
+}]);
 
-
-    $scope.init();
-});
 
 angular.module('KinnectedApp').controller('loginController',
   ['$scope', '$location', 'AuthService',
@@ -52,15 +58,15 @@ angular.module('KinnectedApp').controller('loginController',
 }]);
 
 angular.module('KinnectedApp').controller('logoutController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
+  ['$scope', '$state', 'AuthService',
+  function ($scope, $state, AuthService) {
 
     $scope.logout = function () {
 
       // call logout from service
       AuthService.logout()
         .then(function () {
-          $location.path('/login');
+          $state.go('home');
         });
 
     };
