@@ -92,7 +92,6 @@ angular.module('KinnectedServices', ['ngResource'])
 
     // create a new instance of deferred
     var deferred = $q.defer();
-    console.log(first_name);
     // send a post request to the server
     // $http.post('/api/users/create', {first_name: first_name,
     //                              last_name: last_name,
@@ -110,6 +109,7 @@ angular.module('KinnectedServices', ['ngResource'])
     })
       .success(function (data, status) {
         if(status === 200 && data.result){
+          user = true;
           deferred.resolve();
         } else {
           deferred.reject();

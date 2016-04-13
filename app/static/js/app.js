@@ -9,13 +9,19 @@ var KinnectedApp = angular.module('KinnectedApp', [
 ])
 .run([
   '$rootScope','$state','$stateParams','AuthService',
-  function($rootScope, $state, $stateParams, $AuthService) {
+  function($rootScope, $state, $stateParams, AuthService) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+      console.log(toState);
       if (toState.restricted && AuthService.isLoggedIn() === false){
         // User isn’t authenticated
         $state.transitionTo("home");
+        event.preventDefault();
+      }
+      console.log(AuthService.isLoggedIn())
+      if(toState.name != "profile" && AuthService.isLoggedIn() === true){
+        $state.transitionTo("profile");
         event.preventDefault();
       }
     });
@@ -30,13 +36,13 @@ var KinnectedApp = angular.module('KinnectedApp', [
       url: '/home',
       templateUrl: 'static/home.html',
       controller: 'IndexController',
-      access: {restricted: false}
+      restricted: false
     })
     .state('profile',{
       url: '/profile',
       templateUrl: 'static/Profile_page.html',
       controller: 'profileController',
-      access: {restricted: true}
+      restricted: true
     })
     $urlRouterProvider.otherwise('home');
     $locationProvider.html5Mode(true);
