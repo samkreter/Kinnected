@@ -18,7 +18,7 @@ def index():
 ##############
 # User routes#
 ##############
-@app.route('/users/json/<int:id>')
+@app.route('api/users/json/<int:id>')
 def user_json(id):
     user = User.query.filter_by(id=id).first()
     if user is not None:
@@ -28,7 +28,7 @@ def user_json(id):
         return "User not found"
 
 
-@app.route('/users/create', methods = ['POST'])
+@app.route('api/users/create', methods = ['POST'])
 def create_user():
     error = "User Created"
     user = User(first_name=request.form['first_name'],
@@ -43,7 +43,7 @@ def create_user():
         error = "User email already exists"
     return error
 
-@app.route('/users/<int:id>')
+@app.route('api/users/<int:id>')
 def get_user(id):
     user = User.query.filter_by(id=id).first()
     if user is not None:
@@ -53,7 +53,7 @@ def get_user(id):
     print(error)
     return redirect('/index')
 
-@app.route('/users/delete/<int:id>')
+@app.route('api/users/delete/<int:id>')
 def delete_user(id):
     user = User.query.filter_by(id=id).first()
     if user is not None:
@@ -80,7 +80,7 @@ def current_login():
 # Login/out routes#
 ###################
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("api/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -96,7 +96,7 @@ def login():
 
 
 #to log out the current user jsut send them to this route
-@app.route('/logout')
+@app.route('api/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
