@@ -13,9 +13,15 @@ var KinnectedApp = angular.module('KinnectedApp', [
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     $rootScope.$on('$stateChangeSuccess', function() {
-
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+      if (next.access.restricted && AuthService.isLoggedIn() === false) {
+        $location.path('/login');
+        $route.reload();
+      }
+    });
     });
   }
+
 ])
 .config([
   '$stateProvider','$urlRouterProvider','$locationProvider',
@@ -23,13 +29,15 @@ var KinnectedApp = angular.module('KinnectedApp', [
     $stateProvider
     .state('home', {
       url: '/home',
-      templateUrl: 'static/base.html',
-      controller: 'IndexController'
+      templateUrl: 'static/home.html',
+      controller: 'IndexController',
+      access: {restricted: false}
     })
-    .state('test',{
+    .state('profile',{
       url: '/test',
-      templateUrl: 'static/partials/index.html',
-      controller: 'testController'
+      templateUrl: 'static/Profile_page.html',
+      controller: 'profileController',
+      access: {restricted: true}
     })
     $urlRouterProvider.otherwise('home');
     $locationProvider.html5Mode(true);

@@ -12,7 +12,11 @@ import bcrypt
 @app.route('/home')
 @app.route('/test')
 def index():
-    return app.send_static_file('base.html')
+    return app.send_static_file('index.html')
+
+# @app.route('/profile')
+# def profile():
+#     return app.send_static_file('Profile_page.html')
 
 
 ##############

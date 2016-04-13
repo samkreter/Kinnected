@@ -11,7 +11,7 @@ KinnectedAppControllers.controller("IndexController", function($scope) {
 });
 
 
-KinnectedAppControllers.controller("testController", function($scope) {
+KinnectedAppControllers.controller("profileController", function($scope) {
     $scope.init = function() {
         console.log('loading the test ctrl');
     };
@@ -84,7 +84,7 @@ angular.module('KinnectedApp').controller('registerController',
                            $scope.registerForm.password)
         // handle success
         .then(function () {
-          $location.path('/login');
+          $location.path('/profile');
           $scope.disabled = false;
           $scope.registerForm = {};
         })
