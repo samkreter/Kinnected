@@ -28,8 +28,8 @@ angular.module('KinnectedApp').controller('profileController',
 
 
 angular.module('KinnectedApp').controller('loginController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
+  ['$scope', '$state', 'AuthService',
+  function ($scope, $state, AuthService) {
 
     $scope.login = function () {
 
@@ -41,7 +41,7 @@ angular.module('KinnectedApp').controller('loginController',
       AuthService.login($scope.loginForm.email, $scope.loginForm.password)
         // handle success
         .then(function () {
-          $location.path('/');
+          $state.go('profile');
           $scope.disabled = false;
           $scope.loginForm = {};
         })

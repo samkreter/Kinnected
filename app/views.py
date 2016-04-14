@@ -79,10 +79,11 @@ def current_login():
 
 @app.route("/api/login", methods=["GET", "POST"])
 def login():
-    user = User.query.get(form.email.data)
+    print(request.json['email'])
+    user = User.query.filter_by(email=request.json['email']).first()
     status = False
     if user:
-        if bcrypt.hashpw(form.password.data,user.password) == user.password:
+        if bcrypt.hashpw(request.json['password'].encode('UTF_8'),user.password) == user.password:
             user.authenticated = True
             db.session.add(user)
             db.session.commit()
