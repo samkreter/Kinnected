@@ -119,9 +119,11 @@ class Job(db.Model,Base):
 class Profile(db.Model,Base):
     __tablename__ = 'profile'
     id = db.Column(db.Integer, primary_key=True)
-    resume = db.Column(db.String(120))
+    expected_graduation = db.Column(db.String(120))
+    major = db.Column(db.String(120))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='profile')
+
 
     jobs = db.relationship("Job",secondary=Profile_job_assoc_table.__table__,back_populates="users")
     skills = db.relationship("Skill",secondary=Profile_skill_assoc_table.__table__,back_populates="users")

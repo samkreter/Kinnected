@@ -2,7 +2,7 @@ from app import app
 from flask.ext.login import LoginManager, login_required, UserMixin, login_user, logout_user,current_user
 from flask import redirect, url_for, render_template,request,jsonify
 from sqlalchemy.exc import IntegrityError
-from app.models import User
+from app.models import User, Profile
 from app import db, lm
 import bcrypt
 
@@ -35,8 +35,10 @@ def create_user():
         email=request.json['email'],
         password=bcrypt.hashpw(request.json['password'] \
             .encode('UTF_8'),bcrypt.gensalt(14)))
+    p = Profile(user=user)
     try:
         db.session.add(user)
+        db.session.add(p)
         db.session.commit()
         status = 'success'
     except IntegrityError:
