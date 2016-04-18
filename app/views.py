@@ -18,7 +18,15 @@ def index():
 @app.route('/api/users/update')
 def update_user():
     print(request.args)
-    return "hell yes"
+    user = User.query.filter_by(email=request.args.get("email")).first()
+    columns = user.columns
+    columns.remove("password")
+    columns.remove("email")
+    for column in columns:
+        setattr(user,column,request.args.get(column))
+    db.session.commit()
+    return "all good"
+
 
 @app.route('/api/users/json')
 def user_json():

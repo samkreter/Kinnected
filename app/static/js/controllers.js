@@ -23,9 +23,9 @@ angular.module('KinnectedApp').controller('profileController',
         });
 
     };
-    var success = function () {
-        var message = '<strong>Well done!</strong> You successfully read this important alert message.';
-        Flash.create('success', message);
+    var firstTime = function () {
+        var message = '<strong>Welcome!</strong> Fill in your profile information and get that job!.';
+        Flash.create('info', message);
     };
 
     $scope.updateProfile = function(){
@@ -35,6 +35,7 @@ angular.module('KinnectedApp').controller('profileController',
         params:$scope.userData})
         .success(function(data,status){
           console.log("successful update");
+          $state.go('profile');
         })
         .error(function(data){
           console.log("failed update");
@@ -54,7 +55,7 @@ angular.module('KinnectedApp').controller('profileController',
           }
        })
     }
-    success()
+    firstTime()
     init()
 
 
