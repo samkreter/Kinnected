@@ -36,19 +36,14 @@ var KinnectedApp = angular.module('KinnectedApp', [
     $stateProvider
     .state('home', {
       url: '/home',
-      templateUrl: 'static/home.html',
+      templateUrl: 'static/partials/home.html',
       controller: 'IndexController',
       restricted: false
     })
     .state('profile',{
       url: '/profile',
-      templateUrl: 'static/Profile_page.html',
+      templateUrl: 'static/partials/Profile_page.html',
       controller: 'profileController',
-      restricted: true
-    })
-    .state('logout',{
-      url: '/logout',
-      controller: 'logoutController',
       restricted: true
     })
     $urlRouterProvider.otherwise('home');
