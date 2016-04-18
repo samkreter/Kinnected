@@ -72,7 +72,6 @@ angular.module('KinnectedServices', ['ngResource'])
             user = true;
             deferred.resolve();
         } else {
-          console.log("server didn't return right results");
           user = false;
           deferred.reject();
         }

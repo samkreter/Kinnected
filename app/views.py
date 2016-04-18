@@ -63,15 +63,7 @@ def create_user():
         status = "this user is already registered"
     return jsonify({'result': status})
 
-@app.route('/api/users/<int:id>')
-def get_user(id):
-    user = User.query.filter_by(id=id).first()
-    if user is not None:
-        error = "all good"
-    else:
-        error = "User not found"
-    print(error)
-    return redirect('/index')
+
 
 @app.route('/api/users/delete/<int:id>')
 def delete_user(id):
@@ -128,29 +120,3 @@ def logout():
 def unauthorized():
     # do stuff
     return redirect(url_for('index'))
-
-# #userd for login to check, authenticate and create a user if nesseary
-# @app.route('/authorize/<provider>')
-# def oauth_authorize(provider):
-#     if not current_user.is_anonymous:
-#         return redirect(url_for('current_login'))
-#     oauth = OAuthSignIn.get_provider(provider)
-#     return oauth.authorize()
-
-# #the call back to get all of the information from the provider, probably sticking with facebook
-# @app.route('/callback/<provider>')
-# def oauth_callback(provider):
-#     if not current_user.is_anonymous:
-#         return redirect(url_for('current_login'))
-#     oauth = OAuthSignIn.get_provider(provider)
-#     social_id, username, email = oauth.callback()
-#     if social_id is None:
-#         flash('Authentication failed.')
-#         return redirect(url_for('index'))
-#     user = User.query.filter_by(social_id=social_id).first()
-#     if not user:
-#         user = User(social_id=social_id, nickname=username, email=email)
-#         db.session.add(user)
-#         db.session.commit()
-#     login_user(user, True)
-#     return redirect(url_for('current_login'))

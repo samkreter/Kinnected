@@ -2,13 +2,39 @@
 
 var KinnectedAppControllers = angular.module('KinnectedControllers',['KinnectedServices']);
 
-KinnectedAppControllers.controller("IndexController", function($scope) {
-    $scope.init = function() {
-        console.log('loading the home ctrl');
+
+angular.module('KinnectedApp').controller('IndexController',
+  ['$scope', '$state', 'AuthService','Flash',
+  function ($scope, $state, AuthService,Flash) {
+
+    $scope.login = function () {
+
+      // initial values
+      $scope.error = false;
+      $scope.disabled = true;
+
+      // call login from service
+      AuthService.login($scope.loginForm.email, $scope.loginForm.password)
+        // handle success
+        .then(function () {
+          $state.go('profile');
+          $scope.disabled = false;
+          $scope.loginForm = {};
+        })
+        // handle error
+        .catch(function () {
+          $scope.error = true;
+          var message = 'Invalid Username or Password bro :)';
+          console.log("testing");
+          Flash.create('danger', message);
+          $scope.disabled = false;
+          $scope.loginForm = {};
+        });
+
     };
 
-    $scope.init();
-});
+}]);
+
 
 angular.module('KinnectedApp').controller('profileController',
   ['$scope', '$state', 'AuthService','$http','Flash',
@@ -62,35 +88,6 @@ angular.module('KinnectedApp').controller('profileController',
 }]);
 
 
-angular.module('KinnectedApp').controller('loginController',
-  ['$scope', '$state', 'AuthService',
-  function ($scope, $state, AuthService) {
-
-    $scope.login = function () {
-
-      // initial values
-      $scope.error = false;
-      $scope.disabled = true;
-
-      // call login from service
-      AuthService.login($scope.loginForm.email, $scope.loginForm.password)
-        // handle success
-        .then(function () {
-          $state.go('profile');
-          $scope.disabled = false;
-          $scope.loginForm = {};
-        })
-        // handle error
-        .catch(function () {
-          $scope.error = true;
-          $scope.errorMessage = "Invalid username and/or password";
-          $scope.disabled = false;
-          $scope.loginForm = {};
-        });
-
-    };
-
-}]);
 
 angular.module('KinnectedApp').controller('logoutController',
   ['$scope', '$state', 'AuthService',

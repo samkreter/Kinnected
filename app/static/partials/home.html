@@ -11,7 +11,7 @@
                 <a class="navbar-brand" href="#">Kinnected</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <form ng-controller = "loginController" ng-submit="login()" class="navbar-form navbar-right">
+                <form  ng-submit="login()" class="navbar-form navbar-right">
                     <div class="form-group">
                         <input type="text" ng-model="loginForm.email" placeholder="Email" class="form-control">
                     </div>
@@ -23,10 +23,10 @@
             </div><!--/.navbar-collapse -->
         </div>
     </nav>
-
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
+         <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
             <h1 class="text-center">Welcome to Kinnected!</h1>
             <p class="text-center">Kinnect with local business, business owners, and friends.</p>
         </div>
@@ -34,9 +34,9 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3" style="background-color:yellow;">
+            <div class="col-sm-6 col-sm-offset-3" style="background-color:rgba(0,0,0,.075);">
                 <h2 class="text-center">New to Kinnected?</h2>
-                <h4 class="text-center">Do Amazing at Everything</h4>
+                <h4 class="text-center">Be Amazing at Everything</h4>
                 <p class="text-center">Start now for FREE!!</p>
                 <form ng-controller = "registerController" ng-submit="register()" class="form-horizontal" role="form">
                     <div class="form-group">
