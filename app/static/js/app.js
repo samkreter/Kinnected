@@ -46,6 +46,12 @@ var KinnectedApp = angular.module('KinnectedApp', [
       controller: 'profileController',
       restricted: true
     })
+    .state('editProfile',{
+      url: '/editprofile',
+      templateUrl: 'static/partials/edit_profile.html',
+      controller: 'profileController',
+      restricted: true
+    })
     $urlRouterProvider.otherwise('home');
     $locationProvider.html5Mode(true);
   }
