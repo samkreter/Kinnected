@@ -11,8 +11,8 @@ KinnectedAppControllers.controller("IndexController", function($scope) {
 });
 
 angular.module('KinnectedApp').controller('profileController',
-  ['$scope', '$state', 'AuthService','$http',
-  function ($scope, $state, AuthService,$http) {
+  ['$scope', '$state', 'AuthService','$http','Flash',
+  function ($scope, $state, AuthService,$http,Flash) {
 
     $scope.logout = function () {
 
@@ -22,6 +22,10 @@ angular.module('KinnectedApp').controller('profileController',
           $state.go('home');
         });
 
+    };
+    var success = function () {
+        var message = '<strong>Well done!</strong> You successfully read this important alert message.';
+        Flash.create('success', message);
     };
 
     $scope.updateProfile = function(){
@@ -50,7 +54,9 @@ angular.module('KinnectedApp').controller('profileController',
           }
        })
     }
+    success()
     init()
+
 
 }]);
 
