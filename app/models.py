@@ -119,7 +119,7 @@ class Job(db.Model,Base):
 class Profile(db.Model,Base):
     __tablename__ = 'profile'
     id = db.Column(db.Integer, primary_key=True)
-    expected_graduation = db.Column(db.String(120))
+    gradyear = db.Column(db.String(120))
     major = db.Column(db.String(120))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='profile')

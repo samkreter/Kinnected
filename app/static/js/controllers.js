@@ -24,14 +24,28 @@ angular.module('KinnectedApp').controller('profileController',
 
     };
 
+    $scope.updateProfile = function(){
+      $http({
+        url:'/api/users/update',
+        method:'GET',
+        params:$scope.userData})
+        .success(function(data,status){
+          console.log("successful update");
+        })
+        .error(function(data){
+          console.log("failed update");
+        })
+    }
 
     var init = function(){
        AuthService.getUserData().then(function(data){
           $scope.userData = data.data;
-          if(!("major" in $scope.userData)){
+
+          //have a filler if they havn't updated their profile yet
+          if($scope.userData.major == null){
             $scope.userData.major = "Fill in your major!";
           }
-          if(!("gradYear" in $scope.userData)){
+          if($scope.userData.gradyear == null){
             $scope.userData.gradyear = "Fill in your Grad Year!";
           }
        })

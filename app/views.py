@@ -15,15 +15,21 @@ def index():
 ##############
 # User routes#
 ##############
+@app.route('/api/users/update')
+def update_user():
+    print(request.args)
+    return "hell yes"
+
 @app.route('/api/users/json')
 def user_json():
     user = User.query.filter_by(email=request.args.get("email")).first()
 
     if user is not None:
         temp = user.toJson
+        profile = user.profile.toJson
         temp.pop("password",None)
-        print(temp)
-        return jsonify({**temp,'result':'success'})
+        #the ** just unraps the dicts so we can make them one amazing json object
+        return jsonify({**temp,'result':'success',**profile})
     else:
         return "User not found"
 
