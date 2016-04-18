@@ -67,22 +67,17 @@
             </div>
             <div class="col-sm-8 col-sm-offset-2" style="background-color: #eee;">
                 <h2 class="text-center">user info</h2>
-                <div class="form-group">
-                        <label class="control-label col-sm-4" for="email">Email:</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="email" placeholder="{{userData.email}}">
-                        </div>
-                    </div>
+                <h5>email: {{userData.email}}</h5>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="gradyear">Graduation Date:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="gradyear" placeholder="{{userData.gradyear}}">
+                            <input type="text" ng-model="userData.gradyear"class="form-control" id="gradyear" placeholder="{{userData.gradyear}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="major">Major:</label>
                         <div class="col-sm-6">
-                            <input type="text"  class="form-control" id="major" placeholder="{{userData.major}}">
+                            <input type="text" ng-model="userData.major" class="form-control" id="major" placeholder="{{userData.major}}">
                         </div>
                     </div>
 

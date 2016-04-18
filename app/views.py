@@ -24,6 +24,10 @@ def update_user():
     columns.remove("email")
     for column in columns:
         setattr(user,column,request.args.get(column))
+
+    user.profile.gradyear = request.args.get("gradyear")
+    user.profile.major = request.args.get("major")
+
     db.session.commit()
     return "all good"
 
