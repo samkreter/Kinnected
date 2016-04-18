@@ -15,12 +15,15 @@ def index():
 ##############
 # User routes#
 ##############
-@app.route('/api/users/json/<int:id>')
-def user_json(id):
-    user = User.query.filter_by(id=id).first()
+@app.route('/api/users/json')
+def user_json():
+    user = User.query.filter_by(email=request.args.get("email")).first()
+
     if user is not None:
-        print(user.__table__.columns)
-        return jsonify({**user.toJson,**user.profile.toJson})
+        temp = user.toJson
+        temp.pop("password",None)
+        print(temp)
+        return jsonify({**temp,'result':'success'})
     else:
         return "User not found"
 

@@ -27,6 +27,7 @@ angular.module('KinnectedServices', ['ngResource'])
 
     // create user variable
     var user = null;
+    var userData = null;
 
     function isLoggedIn() {
       if(user) {
@@ -36,6 +37,25 @@ angular.module('KinnectedServices', ['ngResource'])
       }
     }
 
+    function getUserData(){
+      var tmp = getCurrUserData(userData);
+      return tmp;
+    }
+
+    function getCurrUserData(email){
+      var promise = $http({
+        url:'/api/users/json',
+        method:'GET',
+        params:{email: email}})
+
+
+        // handle error
+        promise.error(function (data) {
+           return false;
+        });
+
+        return promise;
+    }
 
   function login(email, password) {
 
@@ -47,15 +67,19 @@ angular.module('KinnectedServices', ['ngResource'])
       // handle success
       .success(function (data, status) {
         if(status === 200 && data.result){
-          user = true;
-          deferred.resolve();
+            userData = email
+            console.log("user passed")
+            user = true;
+            deferred.resolve();
         } else {
+          console.log("server didn't return right results");
           user = false;
           deferred.reject();
         }
       })
       // handle error
       .error(function (data) {
+        console.log("user rejected");
         user = false;
         deferred.reject();
       });
@@ -75,6 +99,7 @@ angular.module('KinnectedServices', ['ngResource'])
       // handle success
       .success(function (data) {
         user = false;
+        userData = null;
         deferred.resolve();
       })
       // handle error
@@ -109,6 +134,7 @@ angular.module('KinnectedServices', ['ngResource'])
     })
       .success(function (data, status) {
         if(status === 200 && data.result){
+          userData = email;
           user = true;
           deferred.resolve();
         } else {
@@ -130,7 +156,8 @@ angular.module('KinnectedServices', ['ngResource'])
       isLoggedIn: isLoggedIn,
       login: login,
       logout: logout,
-      register: register
+      register: register,
+      getUserData: getUserData
     });
 
 }]);

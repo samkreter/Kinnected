@@ -14,6 +14,7 @@ var KinnectedApp = angular.module('KinnectedApp', [
     $rootScope.$stateParams = $stateParams;
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
 
+      console.log(AuthService.isLoggedIn())
       //make sure only authenticated users can get to certain sections
       if (toState.restricted && AuthService.isLoggedIn() === false){
         $state.transitionTo("home");

@@ -4,18 +4,18 @@ from faker import Faker
 import bcrypt
 
 
-#hacky thing to allow dynamic attributes to be added
-class DynamicDict(dict):
-    pass
+# #hacky thing to allow dynamic attributes to be added
+# class DynamicDict(dict):
+#     pass
 
-class company():
-    return
+# class company():
+#     return
 
 
-def getCompanyJobFromCSV(filenmae):
-    #load the data from the csv file
-    data = np.genfromtxt(filenameIn,delimiter=',')
-    compa
+# def getCompanyJobFromCSV(filenmae):
+#     #load the data from the csv file
+#     data = np.genfromtxt(filenameIn,delimiter=',')
+#     compa
 
 fake = Faker()
 

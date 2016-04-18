@@ -11,8 +11,8 @@ KinnectedAppControllers.controller("IndexController", function($scope) {
 });
 
 angular.module('KinnectedApp').controller('profileController',
-  ['$scope', '$state', 'AuthService',
-  function ($scope, $state, AuthService) {
+  ['$scope', '$state', 'AuthService','$http',
+  function ($scope, $state, AuthService,$http) {
 
     $scope.logout = function () {
 
@@ -23,6 +23,15 @@ angular.module('KinnectedApp').controller('profileController',
         });
 
     };
+
+
+    var init = function(){
+       AuthService.getUserData().then(function(data){
+          $scope.userData = data.data;
+          console.log($scope.userData);
+       })
+    }
+    init()
 
 }]);
 
