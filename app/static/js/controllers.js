@@ -28,7 +28,12 @@ angular.module('KinnectedApp').controller('profileController',
     var init = function(){
        AuthService.getUserData().then(function(data){
           $scope.userData = data.data;
-          console.log($scope.userData);
+          if(!("major" in $scope.userData)){
+            $scope.userData.major = "Fill in your major!";
+          }
+          if(!("gradYear" in $scope.userData)){
+            $scope.userData.gradyear = "Fill in your Grad Year!";
+          }
        })
     }
     init()
