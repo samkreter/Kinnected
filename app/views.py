@@ -17,12 +17,23 @@ def index():
 # User routes#
 ##############
 
+@app.route('/api/users/connect')
+def make_connection():
+    main = User.query.filter_by(email=request.args.get("main-email")).first()
+    conn = User.query.filter_by(email=request.args.get("connect-email¡")).first()
+    if main and conn:
+        main.connections.append(conn)
+        db.session.commit()
+        return jsonify({"result":'success'})
+    else:
+        return jsonify({"result":'fail'})
+
 @app.route('/api/users/all')
 def get_all_users():
     users = User.query.all()
     for i in range(len(users)):
         users[i] = users[i].toJson
-        users[i].pop("password",None)
+        users[i].pop("password",'None')
     return json.dumps(users)
 
 

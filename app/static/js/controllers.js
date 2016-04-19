@@ -42,9 +42,22 @@ angular.module('KinnectedApp').controller('profileSearchController',
       var getpeople = function(){
         $http({
           url:'/api/users/all',
-          method:'GET',})
+          method:'GET'})
         .success(function(data){
           $scope.users = data;
+        })
+        .error(function(data){
+          console.log("messed up for the search");
+        })
+      }
+
+      $scope.makeConnection = function(email){
+        $http({
+          url:'/api/users/connect',
+          method:'GET',
+          params:{'connect-email':email,'main-email':AuthService.userData}})
+        .success(function(data){
+          console.log("make connection");
         })
         .error(function(data){
           console.log("messed up for the search");
