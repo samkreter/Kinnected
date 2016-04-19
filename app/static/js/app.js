@@ -44,18 +44,25 @@ var KinnectedApp = angular.module('KinnectedApp', [
     .state('profile',{
       url: '/profile',
       abstract: true,
+      controller: 'profileController',
       templateUrl: 'static/partials/profile_nav.html',
     })
     .state('profile.home',{
-      url: '/profile/home',
+      url: '/home',
       templateUrl: 'static/partials/Profile_page.html',
       controller: 'profileController',
       restricted: true
     })
     .state('profile.editProfile',{
-      url: '/profile/editprofile',
+      url: '/editprofile',
       templateUrl: 'static/partials/edit_profile.html',
       controller: 'profileController',
+      restricted: true
+    })
+    .state('profile.search',{
+      url: '/search',
+      templateUrl: 'static/partials/kinnections.html',
+      controller: 'profileSearchController',
       restricted: true
     })
     $urlRouterProvider.otherwise('home');

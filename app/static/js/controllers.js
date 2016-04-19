@@ -36,6 +36,23 @@ angular.module('KinnectedApp').controller('IndexController',
 }]);
 
 
+angular.module('KinnectedApp').controller('profileSearchController',
+  ['$scope', '$state', 'AuthService','$http','Flash',
+  function ($scope, $state, AuthService,$http,Flash) {
+      var getpeople = function(){
+        $http({
+          url:'/api/users/all',
+          method:'GET',})
+        .success(function(data){
+          $scope.users = data.data;
+          console.log($scope.users);
+        })
+        .error(function(data){
+          console.log("messed up for the search");
+        })
+      }
+  }]);
+
 angular.module('KinnectedApp').controller('profileController',
   ['$scope', '$state', 'AuthService','$http','Flash',
   function ($scope, $state, AuthService,$http,Flash) {
