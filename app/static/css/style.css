@@ -347,7 +347,7 @@ body {
 }
 #body #footer {
   text-align: center;
-  background-color: #141414;
+  background-color: transparent;
   color: #ffffff;
   text-shadow: none;
   padding: 20px;
