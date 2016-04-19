@@ -24,6 +24,7 @@
     "angular-ui-router": "^0.2.18",
     "jquery": "^2.2.2",
     "jquery-mobile-bower": "^1.4.5",
-    "slick-carousel": "^1.5.9"
+    "slick-carousel": "^1.5.9",
+    "angular-flash-alert": "^2.2.7"
   }
 }

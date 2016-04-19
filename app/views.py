@@ -2,7 +2,7 @@ from app import app
 from flask.ext.login import LoginManager, login_required, UserMixin, login_user, logout_user,current_user
 from flask import redirect, url_for, render_template,request,jsonify
 from sqlalchemy.exc import IntegrityError
-from app.models import User
+from app.models import User, Profile
 from app import db, lm
 import bcrypt
 
@@ -15,12 +15,33 @@ def index():
 ##############
 # User routes#
 ##############
-@app.route('/api/users/json/<int:id>')
-def user_json(id):
-    user = User.query.filter_by(id=id).first()
+@app.route('/api/users/update')
+def update_user():
+    print(request.args)
+    user = User.query.filter_by(email=request.args.get("email")).first()
+    columns = user.columns
+    columns.remove("password")
+    columns.remove("email")
+    for column in columns:
+        setattr(user,column,request.args.get(column))
+
+    user.profile.gradyear = request.args.get("gradyear")
+    user.profile.major = request.args.get("major")
+
+    db.session.commit()
+    return "all good"
+
+
+@app.route('/api/users/json')
+def user_json():
+    user = User.query.filter_by(email=request.args.get("email")).first()
+
     if user is not None:
-        print(user.__table__.columns)
-        return jsonify({**user.toJson,**user.profile.toJson})
+        temp = user.toJson
+        profile = user.profile.toJson
+        temp.pop("password",None)
+        #the ** just unraps the dicts so we can make them one amazing json object
+        return jsonify({**temp,'result':'success',**profile})
     else:
         return "User not found"
 
@@ -32,23 +53,17 @@ def create_user():
         email=request.json['email'],
         password=bcrypt.hashpw(request.json['password'] \
             .encode('UTF_8'),bcrypt.gensalt(14)))
+    p = Profile(user=user)
     try:
         db.session.add(user)
+        db.session.add(p)
         db.session.commit()
         status = 'success'
     except IntegrityError:
         status = "this user is already registered"
     return jsonify({'result': status})
 
-@app.route('/api/users/<int:id>')
-def get_user(id):
-    user = User.query.filter_by(id=id).first()
-    if user is not None:
-        error = "all good"
-    else:
-        error = "User not found"
-    print(error)
-    return redirect('/index')
+
 
 @app.route('/api/users/delete/<int:id>')
 def delete_user(id):
@@ -105,29 +120,3 @@ def logout():
 def unauthorized():
     # do stuff
     return redirect(url_for('index'))
-
-# #userd for login to check, authenticate and create a user if nesseary
-# @app.route('/authorize/<provider>')
-# def oauth_authorize(provider):
-#     if not current_user.is_anonymous:
-#         return redirect(url_for('current_login'))
-#     oauth = OAuthSignIn.get_provider(provider)
-#     return oauth.authorize()
-
-# #the call back to get all of the information from the provider, probably sticking with facebook
-# @app.route('/callback/<provider>')
-# def oauth_callback(provider):
-#     if not current_user.is_anonymous:
-#         return redirect(url_for('current_login'))
-#     oauth = OAuthSignIn.get_provider(provider)
-#     social_id, username, email = oauth.callback()
-#     if social_id is None:
-#         flash('Authentication failed.')
-#         return redirect(url_for('index'))
-#     user = User.query.filter_by(social_id=social_id).first()
-#     if not user:
-#         user = User(social_id=social_id, nickname=username, email=email)
-#         db.session.add(user)
-#         db.session.commit()
-#     login_user(user, True)
-#     return redirect(url_for('current_login'))

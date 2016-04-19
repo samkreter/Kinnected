@@ -1,4 +1,4 @@
-﻿
+﻿    <!--Nav bar needs logout to the right and search bar added to it (by Michael Tompkins)-->
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -11,7 +11,7 @@
                 </button>
                 <a class="navbar-brand" ng-click="$state.go('home')">Kinnected</a>
                 <a class="navbar-brand" ng-click="$state.go('profile')">Profile</a>
-                <a class="navbar-brand" href="#">Network</a>
+                <a class="navbar-brand" ng-click="getCurrUserData()">Network</a>
                 <a class="navbar-brand" href="#">Notifications</a>
                 <a class="navbar-brand" href="#">Messages</a>
                 <a class="navbar-brand" ng-click="logout()">Log Out</a>
@@ -22,6 +22,7 @@
 
     <div class="container">
         <div class="row">
+        <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
             <form class="form-horizontal" role="form">
                 <div class="col-sm-4 col-sm-offset-4">
                     <input type="text" class="form-control padding-large-vertical" id="search" placeholder="Search">
@@ -34,29 +35,29 @@
         <br><br>
         <div class="row">
             <p> </p>
-            <h4 class="col-sm-4 text-center col-sm-offset-4">## kinnections</h4>
+            <h4 class="col-sm-4 text-center col-sm-offset-4">Kinnections</h4>
         </div>
         <div class="row">
-            <h3 class="col-sm-2 col-sm-offset-3 text-left">fname lname</h3>
+            <h3 class="col-sm-2 col-sm-offset-3 text-left">{{userData.first_name}},{{userData.last_name}}</h3>
             <img src="/static/profile_pic.jpg" class="col-sm-2 img-circle" alt="Profile Picture">
-            <a class="col-sm-2" href="editProfile.html">edit profile</a>
+            <a class="col-sm-2" ng-click="$state.go('editProfile')">edit profile</a>
             <p>
         </div>
         <br>
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2" style="background-color: #eee;">
-                <h2 class="text-center">experience</h2>
-                <h5>4 years as technical consultant</h5>
-                <h5>worked for mizzou during 2015</h5>
+                <h2 class="text-center">Experience</h2>
+                <h5>Fill in Your Experience!</h5>
             </div>
             <div class="row col-lg-6">
                 <br><br>
             </div>
             <div class="col-sm-8 col-sm-offset-2" style="background-color: #eee;">
                 <h2 class="text-center">user info</h2>
-                <h5>email: email-here@mail.com</h5>
-                <h5>graduated: 2015</h5>
-                <h5>degree: journalism</h5>
+
+                <h5>email: {{userData.email}}</h5>
+                <h5>graduated: {{userData.gradyear}}</h5>
+                <h5>degree: {{userData.major}}</h5>
             </div>
         </div>
 

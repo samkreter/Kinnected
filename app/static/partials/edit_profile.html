@@ -1,0 +1,96 @@
+﻿    <!--Nav bar needs logout to the right and search bar added to it (by Michael Tompkins)-->
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" ng-click="$state.go('home')">Kinnected</a>
+                <a class="navbar-brand" ng-click="$state.go('profile')">Profile</a>
+                <a class="navbar-brand" ng-click="getCurrUserData()">Network</a>
+                <a class="navbar-brand" href="#">Notifications</a>
+                <a class="navbar-brand" href="#">Messages</a>
+                <a class="navbar-brand" ng-click="logout()">Log Out</a>
+            </div>
+        </div>
+    </nav>
+    <br><br><br>
+
+    <div class="container">
+        <div class="row">
+            <form class="form-horizontal" role="form">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <input type="text" class="form-control padding-large-vertical" id="search" placeholder="Search">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Go</button>
+                </div>
+            </form>
+        </div>
+        <br><br>
+        <div class="row">
+            <p> </p>
+            <h4 class="col-sm-4 text-center col-sm-offset-4">## kinnections</h4>
+        </div>
+        <div class="row">
+            <img src="/static/profile_pic.jpg" class="col-sm-offset-5 col-sm-2 img-circle" alt="Profile Picture">
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-sm-2 col-sm-offset-3" for="fname">First Name:</label>
+                <div class="col-sm-2">
+                    <input type="text" ng-model="userData.first_name" class="form-control" id="fname" placeholder="{{userData.first_name}}">
+                </div>
+                <button ng-click="updateProfile()" class="btn btn-default">Save Changes</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-sm-2 col-sm-offset-3" for="lname">Last Name:</label>
+                <div class="col-sm-2">
+                    <input type="text" ng-model="userData.last_name" class="form-control" id="lname" placeholder="{{userData.last_name}}">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2" style="background-color: #eee;">
+                <h2 class="text-center">Experience</h2>
+                <h5>Fill in Your Experience!</h5>
+            </div>
+            <div class="row col-lg-6">
+                <br><br>
+            </div>
+            <div class="col-sm-8 col-sm-offset-2" style="background-color: #eee;">
+                <h2 class="text-center">user info</h2>
+                <h5>email: {{userData.email}}</h5>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="gradyear">Graduation Date:</label>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="userData.gradyear"class="form-control" id="gradyear" placeholder="{{userData.gradyear}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="major">Major:</label>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="userData.major" class="form-control" id="major" placeholder="{{userData.major}}">
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+        </div>
+
+        <br>
+        <hr>
+
+        <footer>
+            <p class="text-center">&copy; 2016 HapyGoSlappys, Inc.</p>
+        </footer>
+    </div>
+
+
