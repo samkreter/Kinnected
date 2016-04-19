@@ -4,6 +4,7 @@ from flask import redirect, url_for, render_template,request,jsonify
 from sqlalchemy.exc import IntegrityError
 from app.models import User, Profile
 from app import db, lm
+import json
 import bcrypt
 
 
@@ -15,6 +16,16 @@ def index():
 ##############
 # User routes#
 ##############
+
+@app.route('/api/users/all')
+def get_all_users():
+    users = User.query.all()
+    for i in range(len(users)):
+        users[i] = users[i].toJson
+        users[i].pop("password",None)
+    return json.dumps(users)
+
+
 @app.route('/api/users/update')
 def update_user():
     print(request.args)
