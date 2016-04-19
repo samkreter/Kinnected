@@ -24,7 +24,7 @@ var KinnectedApp = angular.module('KinnectedApp', [
 
       //if users logged in and goes to homepage redirect to their profile page
       if(toState.name == "home" && AuthService.isLoggedIn() === true){
-        $state.transitionTo("profile");
+        $state.transitionTo("profile.home");
         event.preventDefault();
       }
     });
@@ -43,12 +43,17 @@ var KinnectedApp = angular.module('KinnectedApp', [
     })
     .state('profile',{
       url: '/profile',
+      abstract: true,
+      templateUrl: 'static/partials/profile_nav.html',
+    })
+    .state('profile.home',{
+      url: '/profile/home',
       templateUrl: 'static/partials/Profile_page.html',
       controller: 'profileController',
       restricted: true
     })
-    .state('editProfile',{
-      url: '/editprofile',
+    .state('profile.editProfile',{
+      url: '/profile/editprofile',
       templateUrl: 'static/partials/edit_profile.html',
       controller: 'profileController',
       restricted: true

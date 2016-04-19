@@ -17,7 +17,7 @@ angular.module('KinnectedApp').controller('IndexController',
       AuthService.login($scope.loginForm.email, $scope.loginForm.password)
         // handle success
         .then(function () {
-          $state.go('profile');
+          $state.go('profile.home');
           $scope.disabled = false;
           $scope.loginForm = {};
         })
@@ -61,7 +61,7 @@ angular.module('KinnectedApp').controller('profileController',
         params:$scope.userData})
         .success(function(data,status){
           console.log("successful update");
-          $state.go('profile');
+          $state.go('profile.home');
         })
         .error(function(data){
           console.log("failed update");
@@ -124,7 +124,7 @@ angular.module('KinnectedApp').controller('registerController',
         .then(function () {
           $scope.disabled = false;
           $scope.registerForm = {};
-          $state.go('profile');
+          $state.go('profile.home');
         })
         // handle error
         .catch(function () {
