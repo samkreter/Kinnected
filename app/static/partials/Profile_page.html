@@ -6,10 +6,10 @@
         <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
             <form class="form-horizontal" role="form">
                 <div class="col-sm-4 col-sm-offset-4">
-                    <input type="text" class="form-control padding-large-vertical" id="search" placeholder="Search">
+                    <input type="text" class="form-control padding-large-vertical" id="search"  placeholder="Search">
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary">Go</button>
+                    <button ng-click="$state.go('profile.search')" type="submit" class="btn btn-primary">Go</button>
                 </div>
             </form>
         </div>

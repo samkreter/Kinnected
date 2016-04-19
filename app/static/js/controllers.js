@@ -44,13 +44,14 @@ angular.module('KinnectedApp').controller('profileSearchController',
           url:'/api/users/all',
           method:'GET',})
         .success(function(data){
-          $scope.users = data.data;
-          console.log($scope.users);
+          $scope.users = data;
         })
         .error(function(data){
           console.log("messed up for the search");
         })
       }
+
+      getpeople();
   }]);
 
 angular.module('KinnectedApp').controller('profileController',
