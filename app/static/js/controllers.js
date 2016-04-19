@@ -98,7 +98,7 @@ angular.module('KinnectedApp').controller('profileController',
           }
        })
     }
-    firstTime()
+
     init()
 
 
