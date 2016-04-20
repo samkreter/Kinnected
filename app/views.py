@@ -21,7 +21,7 @@ def add_job():
     job.users.append(user.profile)
     db.session.add(job)
     db.session.commit()
-    return "all good"
+    return jsonify({'result':True})
 
 
 ##############
@@ -90,8 +90,13 @@ def user_json():
         temp = user.toJson
         profile = user.profile.toJson
         temp.pop("password",None)
+        jobs = user.profile.jobs
+        jobList = []
+        for job in jobs:
+            jobList.append(job.toJson)
+
         #the ** just unraps the dicts so we can make them one amazing json object
-        return jsonify({**temp,'result':'success',**profile})
+        return jsonify({**temp,'result':'success',**profile,'jobs':jobList})
     else:
         return "User not found"
 
