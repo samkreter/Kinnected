@@ -36,6 +36,24 @@ angular.module('KinnectedApp').controller('IndexController',
 }]);
 
 
+angular.module('KinnectedApp').controller('profileAddJobController',
+  ['$scope', '$state', 'AuthService','$http','Flash',
+  function ($scope, $state, AuthService,$http,Flash) {
+      $scope.addJob = function(){
+        $http({
+          url:'/api/jobs/add',
+          method:'GET'})
+        .success(function(data){
+          $scope.users = data;
+          console.log($scope.users);
+        })
+        .error(function(data){
+          console.log("messed up for the search");
+        })
+      }
+
+  }]);
+
 angular.module('KinnectedApp').controller('profileSearchController',
   ['$scope', '$state', 'AuthService','$http','Flash',
   function ($scope, $state, AuthService,$http,Flash) {

@@ -2,7 +2,7 @@ from app import app
 from flask.ext.login import LoginManager, login_required, UserMixin, login_user, logout_user,current_user
 from flask import redirect, url_for, render_template,request,jsonify
 from sqlalchemy.exc import IntegrityError
-from app.models import User, Profile
+from app.models import User, Profile, Job
 from app import db, lm
 import json
 import bcrypt
@@ -12,6 +12,17 @@ import bcrypt
 @app.route('/home')
 def index():
     return app.send_static_file('index.html')
+
+
+@app.route('/api/jobs/add')
+def add_job():
+    user = User.query.filter_by(email=request.args.get("email")).first()
+    job = Job(title=request.args.get("jobTitle"),description=request.args.get("jobDes"))
+    job.users.append(user.profile)
+    db.session.add(job)
+    db.session.commit()
+    return "all good"
+
 
 ##############
 # User routes#

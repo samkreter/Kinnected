@@ -6,7 +6,8 @@ var KinnectedApp = angular.module('KinnectedApp', [
   'KinnectedDirectives',
   'ui.router',
   'ngAnimate',
-  'ngFlash'
+  'ngFlash',
+  'ngMaterial'
 ])
 .run([
   '$rootScope','$state','$stateParams','AuthService',
@@ -56,6 +57,12 @@ var KinnectedApp = angular.module('KinnectedApp', [
       url: '/editprofile',
       templateUrl: 'static/partials/edit_profile.html',
       controller: 'profileController',
+      restricted: true
+    })
+    .state('profile.editProfile.addjob',{
+      url: '/addjob',
+      templateUrl: 'static/partials/profile_edit_add_jobs.html',
+      controller: 'profileAddJobController',
       restricted: true
     })
     .state('profile.search',{
