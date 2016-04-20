@@ -41,8 +41,18 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2" style="background-color: #eee;">
                 <h2 class="text-center">Experience</h2>
-                 <ui-view></ui-view>
-                 <button id="addJobBtn" ng-click="$state.go('profile.editprofile.addjob')" class="btn btn-default">Add Job</button>
+                 <div ng-repeat="job in userData.jobs" class="row">
+                    <div class="search-list-item col-sm-10 col-sm-offset-1" style="background-color:rgba(0,0,0,.075);margin-bottom: 16px;">
+                        <div class="row">
+                            <div id="user_info" class="col-sm-12">
+                                <p id="user_fname">Job Title: {{job.title}}</p>
+                                <p id="user_lname">Job Description: {{job.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div ui-view></div>
+                 <button id="addJobBtn" ng-click="$state.go('profile.editProfile.addjob')" class="btn btn-default">Add Job</button>
             </div>
             <div class="row col-lg-6">
                 <br><br>

@@ -6,8 +6,7 @@ var KinnectedApp = angular.module('KinnectedApp', [
   'KinnectedDirectives',
   'ui.router',
   'ngAnimate',
-  'ngFlash',
-  'ngMaterial'
+  'ngFlash'
 ])
 .run([
   '$rootScope','$state','$stateParams','AuthService',

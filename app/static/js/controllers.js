@@ -42,13 +42,20 @@ angular.module('KinnectedApp').controller('profileAddJobController',
       $scope.addJob = function(){
         $http({
           url:'/api/jobs/add',
-          method:'GET'})
+          method:'GET',
+          params:{'email':AuthService.currUser(),
+                  'jobTitle':$scope.jobData.title,
+                  'jobDes':$scope.jobData.description}})
+
         .success(function(data){
-          $scope.users = data;
-          console.log($scope.users);
+          if(data.result){
+            Flash.create('info','Job successfully added');
+            $state.go('profile.editProfile');
+          }
+            Flash.create('danger',"Job failed to be added");
         })
         .error(function(data){
-          console.log("messed up for the search");
+          Flash.create('danger',"Job failed to be added");
         })
       }
 
