@@ -45,6 +45,7 @@ angular.module('KinnectedApp').controller('profileSearchController',
           method:'GET'})
         .success(function(data){
           $scope.users = data;
+          console.log($scope.users);
         })
         .error(function(data){
           console.log("messed up for the search");
@@ -52,12 +53,18 @@ angular.module('KinnectedApp').controller('profileSearchController',
       }
 
       $scope.makeConnection = function(email){
+
         $http({
           url:'/api/users/connect',
           method:'GET',
-          params:{'connect-email':email,'main-email':AuthService.userData}})
+          params:{'connect-email':email,'main-email':AuthService.currUser()}})
         .success(function(data){
-          console.log("make connection");
+          if(data.result){
+            console.log("make connection");
+          }
+          else{
+            console.log("failed");
+          }
         })
         .error(function(data){
           console.log("messed up for the search");

@@ -29,6 +29,9 @@ angular.module('KinnectedServices', ['ngResource'])
     var user = null;
     var userData = null;
 
+    function getCurrUser(){
+      return userData;
+    }
     function isLoggedIn() {
       if(user) {
         return true;
@@ -43,6 +46,7 @@ angular.module('KinnectedServices', ['ngResource'])
     }
 
     function getCurrUserData(email){
+      userData = email
       var promise = $http({
         url:'/api/users/json',
         method:'GET',
@@ -68,7 +72,6 @@ angular.module('KinnectedServices', ['ngResource'])
       .success(function (data, status) {
         if(status === 200 && data.result){
             userData = email
-            console.log("user passed")
             user = true;
             deferred.resolve();
         } else {
@@ -78,7 +81,6 @@ angular.module('KinnectedServices', ['ngResource'])
       })
       // handle error
       .error(function (data) {
-        console.log("user rejected");
         user = false;
         deferred.reject();
       });
@@ -156,7 +158,8 @@ angular.module('KinnectedServices', ['ngResource'])
       login: login,
       logout: logout,
       register: register,
-      getUserData: getUserData
+      getUserData: getUserData,
+      currUser: getCurrUser
     });
 
 }]);
