@@ -6,6 +6,7 @@ from app.models import User, Profile, Job
 from app import db, lm
 import json
 import bcrypt
+import datetime
 
 
 @app.route('/')
@@ -72,12 +73,13 @@ def update_user():
     columns = user.columns
     columns.remove("password")
     columns.remove("email")
+    columns.remove("craeted")
     for column in columns:
         setattr(user,column,request.args.get(column))
 
     user.profile.gradyear = request.args.get("gradyear")
     user.profile.major = request.args.get("major")
-
+    user.updated = datetime.datetime.utcnow()
     db.session.commit()
     return "all good"
 
@@ -107,7 +109,8 @@ def create_user():
         last_name=request.json['last_name'],
         email=request.json['email'],
         password=bcrypt.hashpw(request.json['password'] \
-            .encode('UTF_8'),bcrypt.gensalt(14)))
+            .encode('UTF_8'),bcrypt.gensalt(14)),
+        craeted=datetime.datetime.utcnow())
     p = Profile(user=user)
     try:
         db.session.add(user)
