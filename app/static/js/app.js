@@ -70,6 +70,12 @@ var KinnectedApp = angular.module('KinnectedApp', [
       controller: 'profileSearchController',
       restricted: true
     })
+    .state('profile.display',{
+      url: '/display',
+      templateUrl: 'static/partials/connection-display.html',
+      controller: 'profileDisplayController',
+      restricted: true
+    })
     $urlRouterProvider.otherwise('home');
     $locationProvider.html5Mode(true);
   }

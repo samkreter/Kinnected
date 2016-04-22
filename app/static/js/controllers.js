@@ -36,6 +36,20 @@ angular.module('KinnectedApp').controller('IndexController',
 }]);
 
 
+angular.module('KinnectedApp').controller('profileDisplayController',
+  ['$scope', '$state', 'AuthService','$http','Flash',
+  function ($scope, $state, AuthService,$http,Flash) {
+
+      function init(){
+          var baseUrl = "/api/users/display?email=";
+          var currUserEmail = AuthService.currUser();
+          $scope.d3Url = baseUrl + currUserEmail;
+      }
+
+      init()
+
+  }]);
+
 angular.module('KinnectedApp').controller('profileAddJobController',
   ['$scope', '$state', 'AuthService','$http','Flash',
   function ($scope, $state, AuthService,$http,Flash) {
@@ -50,6 +64,7 @@ angular.module('KinnectedApp').controller('profileAddJobController',
         .success(function(data){
           if(data.result){
             Flash.create('info','Job successfully added');
+
             $state.go('profile.editProfile');
           }
             Flash.create('danger',"Job failed to be added");

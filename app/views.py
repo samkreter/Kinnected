@@ -14,6 +14,23 @@ import datetime
 def index():
     return app.send_static_file('index.html')
 
+@app.route('/api/users/display')
+def get_display_links():
+    user = User.query.filter_by(email=request.args.get("email")).first()
+    conns = user.connections
+    nodes = []
+    links = []
+    userName = user.first_name + " " + user.last_name
+    nodes.append(dict({"name":userName,"group":1}))
+    #create the node list
+    for conn in conns:
+        name = conn.first_name + " " + conn.last_name
+        nodes.append(dict({"name":name,"group":1}))
+
+    for i in range(len(nodes)):
+        links.append(dict({"source":i,"target":0,"value":1}))
+
+    return json.dumps({"nodes":nodes,"links":links})
 
 @app.route('/api/jobs/add')
 def add_job():
@@ -73,13 +90,11 @@ def update_user():
     columns = user.columns
     columns.remove("password")
     columns.remove("email")
-    columns.remove("craeted")
     for column in columns:
         setattr(user,column,request.args.get(column))
 
     user.profile.gradyear = request.args.get("gradyear")
     user.profile.major = request.args.get("major")
-    user.updated = datetime.datetime.utcnow()
     db.session.commit()
     return "all good"
 
@@ -109,8 +124,7 @@ def create_user():
         last_name=request.json['last_name'],
         email=request.json['email'],
         password=bcrypt.hashpw(request.json['password'] \
-            .encode('UTF_8'),bcrypt.gensalt(14)),
-        craeted=datetime.datetime.utcnow())
+            .encode('UTF_8'),bcrypt.gensalt(14)))
     p = Profile(user=user)
     try:
         db.session.add(user)
