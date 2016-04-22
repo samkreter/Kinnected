@@ -70,7 +70,7 @@ angular.module('KinnectedApp').controller('profileAddJobController',
             // I ain't got time now to fix it
             // Probably a todo
             $('#edit-profile-job-list').append('<div class="row">\
-                <div class="list-group-item col-sm-10 col-sm-offset-1" style="background-color:rgba(0,0,0,.075);margin-bottom: 16px;">\
+                <div class="list-group-item col-sm-10 col-sm-offset-1" style="margin-bottom: 16px;">\
                             <div class="row">\
                                 <div id="user_info" class="col-sm-12">\
                                    <h4 class="list-group-item-heading">'+$scope.jobData.title+'</h4>\
