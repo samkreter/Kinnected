@@ -66,6 +66,9 @@ angular.module('KinnectedApp').controller('profileAddJobController',
           if(data.result){
             Flash.create('success','Job successfully added');
 
+            //Definitly not the best way to do this but o well,
+            // I ain't got time now to fix it
+            // Probably a todo
             $('#edit-profile-job-list').append('<div class="row">\
                 <div class="list-group-item col-sm-10 col-sm-offset-1" style="background-color:rgba(0,0,0,.075);margin-bottom: 16px;">\
                             <div class="row">\
@@ -144,11 +147,13 @@ angular.module('KinnectedApp').controller('profileController',
     };
 
     $scope.updateProfile = function(){
+      $scope.userData.Useremail = AuthService.currUser();
       $http({
         url:'/api/users/update',
         method:'GET',
         params:$scope.userData})
         .success(function(data,status){
+          AuthService.setCurrUser($scope.userData.email)
           console.log("successful update");
           $state.go('profile.home');
         })
@@ -160,7 +165,7 @@ angular.module('KinnectedApp').controller('profileController',
     var init = function(){
        AuthService.getUserData().then(function(data){
           $scope.userData = data.data;
-
+          console.log(data)
           //have a filler if they havn't updated their profile yet
           if($scope.userData.major == null){
             $scope.userData.major = "Fill in your major!";

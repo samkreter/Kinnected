@@ -86,10 +86,9 @@ def get_all_users():
 @app.route('/api/users/update')
 def update_user():
     print(request.args)
-    user = User.query.filter_by(email=request.args.get("email")).first()
+    user = User.query.filter_by(email=request.args.get("Useremail")).first()
     columns = user.columns
     columns.remove("password")
-    columns.remove("email")
     for column in columns:
         setattr(user,column,request.args.get(column))
 

@@ -40,6 +40,10 @@ angular.module('KinnectedServices', ['ngResource'])
       }
     }
 
+    function setCurrUser(email){
+      userData = email;
+    }
+
     function getUserData(){
       var tmp = getCurrUserData(userData);
       return tmp;
@@ -159,7 +163,8 @@ angular.module('KinnectedServices', ['ngResource'])
       logout: logout,
       register: register,
       getUserData: getUserData,
-      currUser: getCurrUser
+      currUser: getCurrUser,
+      setCurrUser:setCurrUser
     });
 
 }]);
