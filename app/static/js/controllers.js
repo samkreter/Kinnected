@@ -222,6 +222,7 @@ angular.module('KinnectedApp').controller('registerController',
         })
         // handle error
         .catch(function () {
+          $scope.disabled = false;
           Flash.create('danger','Email Already Used, Try Again Brother');
           $scope.registerForm = {};
         });
