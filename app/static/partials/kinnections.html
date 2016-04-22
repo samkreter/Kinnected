@@ -13,17 +13,17 @@
         </div>
 
         <br><br>
-
-        <div ng-repeat="user in users" class="row">
-            <div class="search-list-item col-sm-6 col-sm-offset-3" style="background-color:rgba(0,0,0,.075);margin-bottom: 16px;padding: 18px;">
-                <div class="row">
-                    <div id="user_pic" class="col-sm-4"><img src="static/profile_pic.jpg" style="width:72px;height:72px;"></div>
-                    <div id="user_info" class="col-sm-6">
-                        <p id="user_fname">First name: {{user.first_name}}</p>
-                        <p id="user_lname">Last name: {{user.last_name}}</p>
-                        <p id="user_description">Description: </p>
+        <div class="list-group">
+            <div ng-repeat="user in users" class="row">
+                <div class="list-group-item col-sm-6 col-sm-offset-3" style="background-color:rgba(0,0,0,.075);margin-bottom: 16px;padding: 18px;">
+                    <div class="row">
+                        <div id="user_pic" class="col-sm-4"><img src="static/profile_pic.jpg" style="width:72px;height:72px;"></div>
+                        <div id="user_info" class="col-sm-6">
+                            <h4 class="list-group-item-heading">{{user.first_name}} {{user.last_name}}</h4>
+                            <p class="list-group-item-text">{{user.email}} </p>
+                        </div>
+                        <div class="col-sm-2"><a ng-click="makeConnection(user.email)" class="btn btn-success"role="button">Kinnect &raquo;</a></div>
                     </div>
-                    <div class="col-sm-2"><p><a ng-click="makeConnection(user.email)" class="btn btn-default "role="button">Kinnect &raquo;</a></p></div>
                 </div>
             </div>
         </div>
