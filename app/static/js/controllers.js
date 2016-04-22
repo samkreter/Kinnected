@@ -62,8 +62,9 @@ angular.module('KinnectedApp').controller('profileAddJobController',
                   'jobDes':$scope.jobData.description}})
 
         .success(function(data){
+          console.log(data)
           if(data.result){
-            Flash.create('info','Job successfully added');
+            Flash.create('success','Job successfully added');
 
             $state.go('profile.editProfile');
           }
