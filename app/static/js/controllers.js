@@ -200,8 +200,8 @@ angular.module('KinnectedApp').controller('logoutController',
 }]);
 
 angular.module('KinnectedApp').controller('registerController',
-  ['$scope', '$location', 'AuthService','$state',
-  function ($scope, $location, AuthService,$state) {
+  ['$scope', '$location', 'AuthService','$state','Flash',
+  function ($scope, $location, AuthService,$state,Flash) {
 
     $scope.register = function () {
 
@@ -222,9 +222,7 @@ angular.module('KinnectedApp').controller('registerController',
         })
         // handle error
         .catch(function () {
-          $scope.error = true;
-          $scope.errorMessage = "Something went wrong!";
-          $scope.disabled = false;
+          Flash.create('danger','Email Already Used, Try Again Brother');
           $scope.registerForm = {};
         });
 

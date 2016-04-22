@@ -129,9 +129,9 @@ def create_user():
         db.session.add(user)
         db.session.add(p)
         db.session.commit()
-        status = 'success'
+        status = True
     except IntegrityError:
-        status = "this user is already registered"
+        status = False
     return jsonify({'result': status})
 
 
