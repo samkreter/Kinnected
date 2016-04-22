@@ -62,13 +62,12 @@ angular.module('KinnectedApp').controller('profileAddJobController',
                   'jobDes':$scope.jobData.description}})
 
         .success(function(data){
-          console.log(data)
+
           if(data.result){
             Flash.create('success','Job successfully added');
 
             $state.go('profile.editProfile');
           }
-            Flash.create('danger',"Job failed to be added");
         })
         .error(function(data){
           Flash.create('danger',"Job failed to be added");
@@ -101,7 +100,7 @@ angular.module('KinnectedApp').controller('profileSearchController',
           params:{'connect-email':email,'main-email':AuthService.currUser()}})
         .success(function(data){
           if(data.result){
-            console.log("make connection");
+            Flash.create('success','successfully created connection!');
           }
           else{
             console.log("failed");
