@@ -66,6 +66,17 @@ angular.module('KinnectedApp').controller('profileAddJobController',
           if(data.result){
             Flash.create('success','Job successfully added');
 
+            $('#edit-profile-job-list').append('<div class="row">\
+                <div class="list-group-item col-sm-10 col-sm-offset-1" style="background-color:rgba(0,0,0,.075);margin-bottom: 16px;">\
+                            <div class="row">\
+                                <div id="user_info" class="col-sm-12">\
+                                   <h4 class="list-group-item-heading">'+$scope.jobData.title+'</h4>\
+                                    <p class="list-group-item-text">'+$scope.jobData.description+'</p>\
+                                </div>\
+                            </div>\
+                        </div>\
+                        </div>')
+
             $state.go('profile.editProfile');
           }
         })
