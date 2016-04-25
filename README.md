@@ -14,9 +14,8 @@
 
     `flask/bin/pip install -r requirments.txt`
 
-5. Make sure to ask the admin for the config.py file to run the app
 
-6. Execute the db_crete.py to create the database
+5. Execute the db_crete.py to create the database
 
     `./db_create.py`
 
@@ -24,10 +23,16 @@
 
         `chmod a+x db_create.py`
 
-7. Migrate the database by executing
+6. Migrate the database by executing
 
     `./db_migrate.py`
 
     - same as above if it doesn't execute give it permission with
 
         `chmod a+x db_migrate.py`
+7. Start the server with the command
+
+    `./run.py'
+
+    - follow above steps to make the file executatble
+8. Go to port localhost:5000 to view that local app
