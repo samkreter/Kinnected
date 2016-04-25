@@ -30,6 +30,18 @@ def get_display_links():
     for i in range(len(nodes)):
         links.append(dict({"source":i,"target":0,"value":1}))
 
+    target = 1
+    group = 2
+    count = len(nodes) - 1
+    for conn in conns:
+        for nconn in conn.connections:
+            name = nconn.first_name + " " + conn.last_name
+            ndoes.append(dict("name":name,"group":group))
+            links.append(dict({"source":count,"target":target,"value":1}))
+            count = count + 1
+        target = target + 1
+        group = group + 1
+
     return json.dumps({"nodes":nodes,"links":links})
 
 @app.route('/api/jobs/add')
