@@ -22,11 +22,11 @@
                 </form>
             </div><!--/.navbar-collapse -->
         </div>
+        <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
     </nav>
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-         <flash-message duration="5000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
             <h1 class="text-center">Welcome to Kinnected!</h1>
             <p class="text-center">Kinnect with local business, business owners, and friends.</p>
         </div>
@@ -74,15 +74,19 @@
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-2">
                     <h2>Joined Companies</h2>
+<<<<<<< HEAD
                     <p>Many companies have joined already and have connected people with new job oppurtunities and partnerships. Learn more about which companies have joined.</p>
                     <div>
                         <p><a class="btn btn-default portfolio-link" href="#joinedCompaniesModal" data-toggle="modal" role="button">Company List &raquo;</a></p>
                     </div>
+=======
+                    <p>Many companies have joined us with kinnecting people with new job oppurtunities and partnerships. Learn more about which companies have joined.</p>
+
+>>>>>>> 6962fe23ee12ab5fc2c9de7633985d1ac0cfe954
                 </div>
                 <div class="col-sm-3 col-sm-offset-1">
                     <h2>Features</h2>
                     <p>There are many helpful features for both employers and people looking for employment. Learn more about those features here!</p>
-                    <p><a class="btn btn-default portfolio-link" href="#features" data-toggle="modal" role="button">View details &raquo;</a></p>
                 </div>
             </div>
 
@@ -93,71 +97,6 @@
             </footer>
     </div>
 
-    <!-- Modals -->
 
-    <!-- Joined Companies Modal -->
-    <div class="portfolio-modal modal fade" id="joinedCompaniesModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <!-- Project Details Go Here -->
-                            <h2>Joined Companies</h2>
-                            <p class="item-intro text-muted">Here are some of the companies that are using our services right now:</p>
-                            <img class="img-responsive img-centered" src="data:image/png;base64,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" alt="Google Logo">
-                            <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                            <p>
-                                <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.
-                            </p>
-                            <ul class="list-inline">
-                                <li>Date: July 2014</li>
-                                <li>Client: Round Icons</li>
-                                <li>Category: Graphic Design</li>
-                            </ul>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Companies</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Features -->
-    <div class="portfolio-modal modal fade" id="features" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <!-- Project Details Go Here -->
-                            <h2>Features</h2>
-                            <p class="item-intro text-muted">Here are some of the Kinnected's Features:</p>
-                            <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                            <p>
-                                <strong>Want these icons in this portfolio item sample?</strong>You can download 60 of them for free, courtesy of <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">RoundIcons.com</a>, or you can purchase the 1500 icon set <a href="https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc">here</a>.
-                            </p>
-                            <ul class="list-inline">
-                                <li>Date: July 2014</li>
-                                <li>Client: Round Icons</li>
-                                <li>Category: Graphic Design</li>
-                            </ul>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Features</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+

@@ -2,10 +2,11 @@ from app import app
 from flask.ext.login import LoginManager, login_required, UserMixin, login_user, logout_user,current_user
 from flask import redirect, url_for, render_template,request,jsonify
 from sqlalchemy.exc import IntegrityError
-from app.models import User, Profile
+from app.models import User, Profile, Job
 from app import db, lm
 import json
 import bcrypt
+import datetime
 
 
 @app.route('/')
@@ -13,9 +14,65 @@ import bcrypt
 def index():
     return app.send_static_file('index.html')
 
+@app.route('/api/users/display')
+def get_display_links():
+    user = User.query.filter_by(email=request.args.get("email")).first()
+    conns = user.connections
+    nodes = []
+    links = []
+    userName = user.first_name + " " + user.last_name
+    nodes.append(dict({"name":userName,"group":1}))
+    #create the node list
+    for conn in conns:
+        name = conn.first_name + " " + conn.last_name
+        nodes.append(dict({"name":name,"group":1}))
+
+    for i in range(len(nodes)):
+        links.append(dict({"source":i,"target":0,"value":1}))
+
+    return json.dumps({"nodes":nodes,"links":links})
+
+@app.route('/api/jobs/add')
+def add_job():
+    user = User.query.filter_by(email=request.args.get("email")).first()
+    job = Job(title=request.args.get("jobTitle"),description=request.args.get("jobDes"))
+    job.users.append(user.profile)
+    db.session.add(job)
+    db.session.commit()
+    return jsonify({'result':True})
+
+
 ##############
 # User routes#
 ##############
+@app.route('/api/users/getconn')
+def get_connections():
+    user = User.query.filter_by(email=request.args.get("email")).first()
+    if user:
+        conns = user.connections
+        connsList = []
+
+        for i in range(len(conns)):
+            print(conns[i])
+            connsList.append(conns[i].toJson)
+            connsList[i].pop("password",None)
+        return json.dumps(connsList)
+    else:
+        return False
+
+@app.route('/api/users/connect')
+def make_connection():
+    main = User.query.filter_by(email=request.args.get("main-email")).first()
+    conn = User.query.filter_by(email=request.args.get("connect-email")).first()
+    print(request.args.get("main-email"))
+    print(request.args.get("connect-email"))
+    if main and conn:
+        main.connections.append(conn)
+        db.session.commit()
+        return jsonify({"result":True})
+    else:
+        return jsonify({'result':False})
+
 
 @app.route('/api/users/all')
 def get_all_users():
@@ -29,16 +86,14 @@ def get_all_users():
 @app.route('/api/users/update')
 def update_user():
     print(request.args)
-    user = User.query.filter_by(email=request.args.get("email")).first()
+    user = User.query.filter_by(email=request.args.get("Useremail")).first()
     columns = user.columns
     columns.remove("password")
-    columns.remove("email")
     for column in columns:
         setattr(user,column,request.args.get(column))
 
     user.profile.gradyear = request.args.get("gradyear")
     user.profile.major = request.args.get("major")
-
     db.session.commit()
     return "all good"
 
@@ -51,8 +106,13 @@ def user_json():
         temp = user.toJson
         profile = user.profile.toJson
         temp.pop("password",None)
+        jobs = user.profile.jobs
+        jobList = []
+        for job in jobs:
+            jobList.append(job.toJson)
+
         #the ** just unraps the dicts so we can make them one amazing json object
-        return jsonify({**temp,'result':'success',**profile})
+        return jsonify({**temp,'result':'success',**profile,'jobs':jobList})
     else:
         return "User not found"
 
@@ -69,9 +129,9 @@ def create_user():
         db.session.add(user)
         db.session.add(p)
         db.session.commit()
-        status = 'success'
+        status = True
     except IntegrityError:
-        status = "this user is already registered"
+        status = False
     return jsonify({'result': status})
 
 

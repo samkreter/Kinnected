@@ -1,23 +1,4 @@
-﻿    <!--Nav bar needs logout to the right and search bar added to it (by Michael Tompkins)-->
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" ng-click="$state.go('home')">Kinnected</a>
-                <a class="navbar-brand" ng-click="$state.go('profile')">Profile</a>
-                <a class="navbar-brand" ng-click="getCurrUserData()">Network</a>
-                <a class="navbar-brand" href="#">Notifications</a>
-                <a class="navbar-brand" href="#">Messages</a>
-                <a class="navbar-brand" ng-click="logout()">Log Out</a>
-            </div>
-        </div>
-    </nav>
+﻿
     <br><br><br>
 
     <div class="container">
@@ -27,7 +8,7 @@
                     <input type="text" class="form-control padding-large-vertical" id="search" placeholder="Search">
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary">Go</button>
+                    <button ng-click="$state.go('profile.search')" type="submit" class="btn btn-primary">Go</button>
                 </div>
             </form>
         </div>
@@ -60,14 +41,32 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2" style="background-color: #eee;">
                 <h2 class="text-center">Experience</h2>
-                <h5>Fill in Your Experience!</h5>
+                 <div id="edit-profile-job-list"class="list-group">
+                     <div ng-repeat="job in userData.jobs" class="row">
+                        <div class="list-group-item col-sm-10 col-sm-offset-1" style="margin-bottom: 16px;">
+                            <div class="row">
+                                <div id="user_info" class="col-sm-12">
+                                   <h4 class="list-group-item-heading">{{job.title}}</h4>
+                                    <p class="list-group-item-text">{{job.description}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div ui-view></div>
+                 <button id="addJobBtn" ng-click="$state.go('profile.editProfile.addjob')" class="btn btn-success">Add Job</button>
             </div>
             <div class="row col-lg-6">
                 <br><br>
             </div>
             <div class="col-sm-8 col-sm-offset-2" style="background-color: #eee;">
                 <h2 class="text-center">user info</h2>
-                <h5>email: {{userData.email}}</h5>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="email">Email:</label>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="userData.email"class="form-control" id="email" placeholder="{{userData.email}}">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4" for="gradyear">Graduation Date:</label>
                         <div class="col-sm-6">

@@ -23,9 +23,10 @@ class User(db.Model,Base,UserMixin):
 
     #relationships
     #projects = db.relationship('Project', backref='owner', lazy='dynamic')
+    parent_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     companies = db.relationship("Company", back_populates="owner")
     profile = db.relationship('Profile', uselist=False, back_populates='user')
-
+    connections = db.relationship("User",backref=db.backref('main', remote_side=[id]))
     # def __init__(self, email, first_name=None, last_name=None):
     #     self.email = email.lower()
     #     self.first_name = first_name
@@ -98,6 +99,7 @@ class Job(db.Model,Base):
     __tablename__ = 'job'
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(120))
+    description = db.Column(db.String(140))
 
     users = db.relationship("Profile",secondary=Profile_job_assoc_table.__table__,back_populates="jobs")
 
