@@ -1,18 +1,18 @@
     <!--Nav bar needs logout to the right and search bar added to it (by Michael Tompkins)-->
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed">
         <div class="container">
-            <div class="navbar-header">
+            <div class="nav-wrapper">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="material-icons"></span>
+                    <span class="material-icons"></span>
+                    <span class="material-icons"></span>
                 </button>
-                <a class="navbar-brand" ng-click="$state.go('home')">Kinnected</a>
-                <a class="navbar-brand" ng-click="$state.go('profile.home')">Profile</a>
-                <a class="navbar-brand" ng-click="$state.go('profile.display')">Network</a>
-                <a class="navbar-brand" ng-click="logout()">Log Out</a>
+                <a class="tab" ng-click="$state.go('home')">Kinnected</a>
+                <a class="tab" ng-click="$state.go('profile.home')">Profile</a>
+                <a class="tab" ng-click="$state.go('profile.display')">Network</a>
+                <button class="btn-flat btn-success right" ng-click="logout()">Log Out</button>
             </div>
         </div>
             <flash-message duration="1000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>
