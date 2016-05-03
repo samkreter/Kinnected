@@ -13,10 +13,10 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <form  ng-submit="login()" class="navbar-form navbar-right">
                     <div class="form-group">
-                        <input type="text" ng-model="loginForm.email" placeholder="Email" class="form-control input-field">
+                        <input type="text" ng-model="loginForm.email" placeholder="Email" class="form-control input-field white-text">
                     </div>
                     <div class="form-group">
-                        <input type="password" ng-model="loginForm.password"placeholder="Password" class="form-control input-field">
+                        <input type="password" ng-model="loginForm.password"placeholder="Password" class="form-control input-field white-text">
                     </div>
                     <button type="submit" class="btn-flat btn-success">Sign in</button>
                 </form>
@@ -34,7 +34,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3" style="background-color:rgba(0,0,0,.075);">
+            <div class="col-sm-8 col-sm-offset-2" style="background-color:rgba(0,0,0,.075);">
                 <h2 class="text-center">New to Kinnected?</h2>
                 <h4 class="text-center">Be Amazing at Everything</h4>
                 <p class="text-center">Start now for FREE!!</p>
@@ -65,24 +65,24 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-4 col-sm-4">
-                            <button type="submit" ng-disabled="disabled" class="btn btn-default">Create Account</button>
+                            <button type="submit" ng-disabled="disabled" class="btn btn-default black-text">Create Account</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-2">
-                    <h2>Joined Companies</h2>
-                    <p>Many companies have joined already and have connected people with new job oppurtunities and partnerships. Learn more about which companies have joined.</p>
-                    <div>
-                        <p><a class="btn btn-default portfolio-link" href="#joinedCompaniesModal" data-toggle="modal" role="button">Company List &raquo;</a></p>
-                    </div>
-                </div>
                 <div class="col-sm-4 col-sm-offset-1">
+                    <h2>Companies</h2>
+                    <p>Many companies have joined already and have connected people with new job oppurtunities and partnerships. Learn more about which companies have joined.</p>
+                    <!-- <div>
+                        <p><a class="btn btn-default portfolio-link" href="#joinedCompaniesModal" data-toggle="modal" role="button">Company List &raquo;</a></p>
+                    </div> -->
+                </div>
+                <div class="col-sm-4 col-sm-offset-2">
                     <h2>Features</h2>
                     <p>There are many helpful features for both employers and people looking for employment. Learn more about those features here!</p>
-                    <p><a class="btn btn-default portfolio-link" href="#features" data-toggle="modal" role="button">View details &raquo;</a></p>
+                    <!-- <p><a class="btn btn-default portfolio-link" href="#features" data-toggle="modal" role="button">View details &raquo;</a></p> -->
                 </div>
             </div>
 
