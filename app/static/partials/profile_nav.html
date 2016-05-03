@@ -9,10 +9,14 @@
                     <span class="material-icons"></span>
                     <span class="material-icons"></span>
                 </button>
-                <a class="tab" ng-click="$state.go('home')">Kinnected</a>
-                <a class="tab" ng-click="$state.go('profile.home')">Profile</a>
-                <a class="tab" ng-click="$state.go('profile.display')">Network</a>
-                <button class="btn-flat btn-success right" ng-click="logout()">Log Out</button>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a ng-click="$state.go('home')">Kinnected</a></li>
+                    <li><a ng-click="$state.go('profile.home')">Profile</a></li>
+                    <li><a ng-click="$state.go('profile.display')">Network</a></li>
+                </ul>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a ng-click="logout()">Log Out</a></li>
+                </ul>
             </div>
         </div>
             <flash-message duration="1000" show-close="true" on-dismiss="myCallback(flash)" ></flash-message>

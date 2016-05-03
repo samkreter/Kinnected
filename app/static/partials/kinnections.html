@@ -7,7 +7,7 @@
                     <input type="text" class="form-control padding-large-vertical" id="search" placeholder="Search">
                 </div>
                 <div>
-                    <button ng-click="$state.go('profile.search')" type="submit" class="btn btn-primary">Go</button>
+                    <button ng-click="$state.go('profile.search')" type="submit" class="btn-floating btn-primary">Go</button>
                 </div>
             </form>
         </div>
@@ -22,7 +22,7 @@
                             <h4 class="list-group-item-heading">{{user.first_name}} {{user.last_name}}</h4>
                             <p class="list-group-item-text">{{user.email}} </p>
                         </div>
-                        <div class="col-sm-2"><a ng-click="makeConnection(user.email)" class="btn btn-success"role="button">Kinnect &raquo;</a></div>
+                        <button ng-click="makeConnection(user.email)" class="btn-flat btn-success btn-primary" type="submit">Kinnect &raquo;</button>
                     </div>
                 </div>
             </div>
