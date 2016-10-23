@@ -1,4 +1,7 @@
-# SWE-project
+Kinnected
+=========
+
+Kinnected is an application to keep all of your perfessional connections in one place. Simple way to allow for viewing the different relationships in your group
 
 ###Set up
 
